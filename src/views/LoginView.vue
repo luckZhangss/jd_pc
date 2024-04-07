@@ -79,7 +79,7 @@
   
   const submitForm = ()=>{
     console.log( '登录成功');
-    router.push('/home')
+    router.push('/')
   }
   const disabled = computed(() => {
     return !(formState.username && formState.password);
