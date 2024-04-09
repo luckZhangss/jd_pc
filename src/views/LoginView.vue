@@ -70,6 +70,8 @@ import { message } from "ant-design-vue";
 
 const {appContext}  =  getCurrentInstance()
 console.log(appContext);
+const globalProxy = appContext.config.globalProperties
+
 
 
 interface FormState {
@@ -86,32 +88,57 @@ const formRef = ref<FormInstance>();
 
 const onFinish = (values: any) => {
   const { username, password } = formState;
-  axios
-    .post("http://localhost:5000/api/v1/login", {
-      username: username,
-      password: password,
-    })
-    .then((res) => {
-      console.log(res);
-      if (res.data.code === 0) {
-        localStorage.setItem("userInfo", JSON.stringify(res.data.data));
-        message.success({
-          content: "登录成功",
-          duration: 2,
-          onClose: () => {
-            router.push("/");
-          },
-        });
-      } else {
-        message.error({
-          content: res.data.msg,
-          duration: 3,
-          onClose: () => {
-            formRef.value.resetFields()
-          },
-        });
-      }
-    });
+
+  globalProxy.$http.post('http://localhost:5000/api/v1/login',{username:username,password:password}).then((res)=>{
+    console.log(res);
+    if(res.data.code === 0){
+      localStorage.setItem('userInfo',JSON.stringify(res.data.data))
+      globalProxy.$message.success({
+        content:'登录成功',
+        duration:2,
+        onClose:()=>{
+           router.push("/");
+        }
+      })
+    }else{
+      globalProxy.$message.error({
+        content:res.data.msg,
+        duration:3,
+        onClose:()=>{
+          formRef.value.resetFields()
+        }
+      });
+      
+    }
+   
+    
+  })
+  // axios
+  //   .post("http://localhost:5000/api/v1/login", {
+  //     username: username,
+  //     password: password,
+  //   })
+  //   .then((res) => {
+  //     console.log(res);
+  //     if (res.data.code === 0) {
+  //       localStorage.setItem("userInfo", JSON.stringify(res.data.data));
+  //       message.success({
+  //         content: "登录成功",
+  //         duration: 2,
+  //         onClose: () => {
+  //           router.push("/");
+  //         },
+  //       });
+  //     } else {
+  //       message.error({
+  //         content: res.data.msg,
+  //         duration: 3,
+  //         onClose: () => {
+  //           formRef.value.resetFields()
+  //         },
+  //       });
+  //     }
+  //   });
   console.log("Success:", values);
 };
 

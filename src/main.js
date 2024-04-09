@@ -21,7 +21,7 @@ app.config.globalProperties.$http = http
 
 app.use(createPinia())
 app.use(router)
-app.use(http)
+
 
 // app.mount('#app')
 app.use(Antd).mount('#app');

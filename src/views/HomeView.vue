@@ -404,7 +404,7 @@
     </div>
     <!-- 商品 -->
     <div class="shop">
-      <div v-for="item in shopPic" :key="item">
+      <div v-for="item in shopPic" :key="item"  @click="goDetails(item)">
         <img :src="item.url" />
         <p>{{ item.text }}</p>
       </div>
@@ -414,6 +414,21 @@
 </template>
 
 <script lang="ts" setup>
+import { useRouter } from "vue-router";
+const router = useRouter()
+
+const goDetails =(item)=>{
+  console.log(item);
+  
+  router.push({
+        path: '/detailsPage',
+        query:{
+         title:item.text,
+         pic:item.url
+        }
+    })
+}
+
 import {
   LeftCircleOutlined,
   RightCircleOutlined,
@@ -523,7 +538,7 @@ const shopPic = reactive([
   },
   {
     url: "https://img13.360buyimg.com/jdcms/s460x460_jfs/t1/225127/26/8803/116317/657d61f0F56490429/b09afd6dc6143e84.jpg.avif",
-    text: "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
+    text: "膳魔师（THERMOS）新款TSK2大容量保温杯网红夏季保冷啤酒杯不锈钢办公泡茶水杯JDK JDK-600黄色（不带杯盖） 600ml",
   },
   {
     url: "https://img10.360buyimg.com/jdcms/s460x460_jfs/t1/110125/28/22518/94297/65ed47c2Fe58760ff/9203ee2e2cc7d450.jpg.avif",
@@ -651,6 +666,9 @@ const onFinish = () => {
   console.log("finished!");
 };
 const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30;
+
+
+
 </script>
 
 <style lang="scss" scoped>

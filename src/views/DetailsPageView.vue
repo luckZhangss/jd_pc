@@ -20,27 +20,32 @@
     <div class="midd">
         <!-- zuo -->
         <div>
-            <img src="https://img10.360buyimg.com/n1/jfs/t1/191085/38/27662/403531/62f07bccEe2bdde24/a2c274f3884f08fa.jpg.avif" alt="">
+            <!-- <img src="https://img30.360buyimg.com/jdcms/s460x460_jfs/t1/162433/11/38114/159740/64a69427F33674f32/cf5fdb3c22954604.jpg.avif" >
+             -->
+             <img :src= "pics" alt="">
+           
         </div>
         <!-- you -->
         <div>
-            <p>TAIC太可钛度钛杯纯钛保温杯 钛水杯男女情侣双层真空 商务高档礼品杯 瀚海蓝 420ml升级款（带滤网）</p>
+            <!-- <p>TAIC太可钛度钛杯纯钛保温杯 钛水杯男女情侣双层真空 商务高档礼品杯 瀚海蓝 420ml升级款（带滤网）</p> -->
+            <p>{{ title }}</p>
             <div>
                 <div>
-                     <p>京东价 ￥降价通知</p>
-                <span>累计评价</span>
+                <p>京东价 ￥降价通知</p>
+                <span>累计评价: 999</span>
                 </div>
                 <p>促销</p>
+            
             </div>
              <!-- 增值业务 -->
-        <p>增值业务</p>
-        <p>配送至</p>
-        <p>选择颜色</p>
-        <p>选择规格</p>
+        <p>增值业务: 无</p>
+        <p>配送至 贵阳</p>
+        <p>选择颜色： 红色</p>
+        <p>选择规格: 550ml</p>
         <div style="display: flex;">
              <!-- <button onclick="value--">-</button><input type="text" value="1" style="width: 40px;text-align: center;"><button onclick="value--">+</button> -->
              <a-input-number id="inputNumber" v-model:value="value" :min="1" :max="999"/>
-        <button style="margin-left: 5px;background-color: red;">加入购物车</button>
+        <button style="margin-left: 5px;background-color: red;" >加入购物车</button>
         </div>
        
         </div>
@@ -50,9 +55,38 @@
   </div>
 </template>
 
+
+
 <script setup lang="ts">
 import { ref } from 'vue';
 const value = ref<number>(1);
+import { useRoute } from 'vue-router';
+
+const route = useRoute()
+console.log(route.query);
+
+
+
+
+let title = route.query.title
+let pics = route.query.pic
+console.log(pics);
+console.log(title);
+// 渲染传递过来的图片
+const props = defineProps({
+    pics:{
+      type:String,
+  }
+}
+ 
+
+
+)
+
+
+
+
+
 </script>
 
 <style scoped>
