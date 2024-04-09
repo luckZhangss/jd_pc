@@ -900,17 +900,18 @@ a{
   background-image: url("https://img13.360buyimg.com/imagetools/jfs/t1/179159/2/43444/4097/65d55ce7F9c9cb193/631adf4e860c1010.png");
   background-size: cover;
   // width: 140px;
-  margin: 6px;
+  margin: 9px;
 }
 .midd_tim_two > .left > span {
   display: block;
-  font-weight: 800;
+  font-weight: 400;
   margin-top: 30px;
   font-size: 12px;
   margin-bottom: -10px;
 }
 .midd_tim_two > .left > p {
   font-weight: 800;
+  font-size: 14px;
 }
 // 计时器数字大小
 ::v-deep(
@@ -1090,7 +1091,7 @@ a{
 
 // 设置轮播图图片大小
 :where(.css-dev-only-do-not-override-1hsjdkk).ant-carousel .slick-slide img {
-  width: 540px;
+  width: 530px;
 }
 
 :deep(.slick-arrow.custom-slick-arrow) {

@@ -37,6 +37,10 @@ const router = createRouter({
       path:'/detailsPage',
       name:'detailsPage',
       component:()=>import('../views/DetailsPageView.vue')
+    },
+    {
+      path:'/register',
+      component:()=>import('../views/RegisterView.vue')
     }
   ]
 })
