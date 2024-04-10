@@ -404,9 +404,11 @@
     </div>
     <!-- 商品 -->
     <div class="shop">
-      <div v-for="item in shopPic" :key="item"  @click="goDetails(item)">
-        <img :src="item.url" />
-        <p>{{ item.text }}</p>
+      <div v-for="item in data.shopping" :key="item.id"  @click="goDetails(item)">
+        <img :src="item.picUrl" />
+        <p>{{item.title }}</p>
+        <p>￥<span>{{item.price}}</span>
+          </p>
       </div>
     </div>
     <!-- 下 -->
@@ -418,15 +420,27 @@ import { useRouter } from "vue-router";
 const router = useRouter()
 
 const goDetails =(item)=>{
-  console.log(item);
+  // console.log(item);
   
-  router.push({
-        path: '/detailsPage',
-        query:{
-         title:item.text,
-         pic:item.url
-        }
+  // router.push({
+  //       path: '/detailsPage',
+  //       query:{
+  //       shop:item,
+  //        title:item.text,
+  //        pic:item.url,
+  //        price:item.price
+  //       }
+  //   })
+
+    router.push({
+      path:'/detailsPage',
+      query:{
+        shop:JSON.stringify(item)
+
+      }
     })
+
+
 }
 
 import {
@@ -436,6 +450,7 @@ import {
 } from "@ant-design/icons-vue";
 
 import { reactive, ref } from "vue";
+import axios from "axios";
 const value = ref<string>("");
 // nav
 const items = ref([
@@ -530,70 +545,20 @@ const middSwip = ref([
     url: "https://imgcps.jd.com/ling-cubic/ling4/lab/amZzL3QxLzEyNjU0OS8xMS8zODEyMi80MTU3MTcvNjRlYzY2YmVGNTIzNjYxMGUvMTI5NTM1MDFiMDI3ZWM2NC5wbmc/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/1635185254164787202/cr/s/q.jpg",
   },
 ]);
-// 商品图片
-const shopPic = reactive([
-  {
-    url: "https://img30.360buyimg.com/jdcms/s460x460_jfs/t1/162433/11/38114/159740/64a69427F33674f32/cf5fdb3c22954604.jpg.avif",
-    text: "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
-  },
-  {
-    url: "https://img13.360buyimg.com/jdcms/s460x460_jfs/t1/225127/26/8803/116317/657d61f0F56490429/b09afd6dc6143e84.jpg.avif",
-    text: "膳魔师（THERMOS）新款TSK2大容量保温杯网红夏季保冷啤酒杯不锈钢办公泡茶水杯JDK JDK-600黄色（不带杯盖） 600ml",
-  },
-  {
-    url: "https://img10.360buyimg.com/jdcms/s460x460_jfs/t1/110125/28/22518/94297/65ed47c2Fe58760ff/9203ee2e2cc7d450.jpg.avif",
-    text: "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
-  },
-  {
-    url: "https://img11.360buyimg.com/jdcms/s460x460_jfs/t1/179539/28/44085/129038/65f4507aF1cffde29/1e1470135b2613bd.jpg.avif",
-    text: "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
-  },
-  {
-    url: "https://img12.360buyimg.com/jdcms/s460x460_jfs/t1/194275/34/43184/134425/660bce55F8a1de97d/7cb13fa4565053fb.jpg.avif",
-    text: "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
-  },
-  {
-    url: "https://img11.360buyimg.com/jdcms/s460x460_jfs/t1/164665/3/42710/130725/65d5c305F9a18fbf0/95459bf051c0068f.jpg.avif",
-    text: "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
-  },
-  {
-    url: "https://img14.360buyimg.com/jdcms/s460x460_jfs/t1/225170/30/14905/159135/660c2897F13abe5fb/31e5c8eb6e2dc982.jpg.avif",
-    text: "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
-  },
-  {
-    url: "https://img30.360buyimg.com/jdcms/s460x460_jfs/t1/249097/18/46/109922/65840c3dFe9712f07/d38ea759597ad3b9.jpg.avif",
-    text: "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
-  },
-  {
-    url: "https://img10.360buyimg.com/jdcms/s460x460_jfs/t1/8971/31/22569/86417/651269feF8e7f35b8/83d1381a43659f29.jpg.avif",
-    text: "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
-  },
-  {
-    url: "https://img11.360buyimg.com/jdcms/s460x460_jfs/t1/107419/4/42512/134158/65f39e74Ffe3a44ee/61119ef740055e89.jpg.avif",
-    text: "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
-  },
+// 商品
+const data = reactive({
+  shopping:[]
+});
+// 请求获取商品详情
+axios.get('http://localhost:3000/shopping').then((res)=>{
+  console.log(res);
+  data.shopping = res.data
+})
 
-  {
-    url: "https://img11.360buyimg.com/jdcms/s460x460_jfs/t1/164665/3/42710/130725/65d5c305F9a18fbf0/95459bf051c0068f.jpg.avif",
-    text: "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
-  },
-  {
-    url: "https://img14.360buyimg.com/jdcms/s460x460_jfs/t1/225170/30/14905/159135/660c2897F13abe5fb/31e5c8eb6e2dc982.jpg.avif",
-    text: "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
-  },
-  {
-    url: "https://img30.360buyimg.com/jdcms/s460x460_jfs/t1/249097/18/46/109922/65840c3dFe9712f07/d38ea759597ad3b9.jpg.avif",
-    text: "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
-  },
-  {
-    url: "https://img10.360buyimg.com/jdcms/s460x460_jfs/t1/8971/31/22569/86417/651269feF8e7f35b8/83d1381a43659f29.jpg.avif",
-    text: "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
-  },
-  {
-    url: "https://img11.360buyimg.com/jdcms/s460x460_jfs/t1/107419/4/42512/134158/65f39e74Ffe3a44ee/61119ef740055e89.jpg.avif",
-    text: "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
-  },
-]);
+
+
+
+
 const onSearch = (searchValue: string) => {
   console.log("use value", searchValue);
   console.log("or use this.value", value.value);
@@ -745,7 +710,7 @@ a{
   //  background-color: #e1251b;
   background-color: white;
   width: 31vh;
-  height: 40vh;
+  height: 45vh;
   margin: 5px 6px;
 }
 .shop > div > img {

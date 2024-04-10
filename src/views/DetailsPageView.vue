@@ -17,21 +17,21 @@
       </div>
     </div>
     <!-- 中 -->
-    <div class="midd">
+    <div class="midd" >
         <!-- zuo -->
         <div>
-            <!-- <img src="https://img30.360buyimg.com/jdcms/s460x460_jfs/t1/162433/11/38114/159740/64a69427F33674f32/cf5fdb3c22954604.jpg.avif" >
-             -->
-             <img :src= "pics" alt="">
+            <!-- <img src="https://img30.360buyimg.com/jdcms/s460x460_jfs/t1/162433/11/38114/159740/64a69427F33674f32/cf5fdb3c22954604.jpg.avif" > -->
+            
+             <img :src= "shops.picUrl" alt="">
            
         </div>
         <!-- you -->
         <div>
             <!-- <p>TAIC太可钛度钛杯纯钛保温杯 钛水杯男女情侣双层真空 商务高档礼品杯 瀚海蓝 420ml升级款（带滤网）</p> -->
-            <p>{{ title }}</p>
+            <p>{{shops.title }}</p>
             <div>
                 <div>
-                <p>京东价 ￥降价通知</p>
+                <p>京东价 ￥<span>{{shops.price}}</span> </p>
                 <span>累计评价: 999</span>
                 </div>
                 <p>促销</p>
@@ -45,7 +45,7 @@
         <div style="display: flex;">
              <!-- <button onclick="value--">-</button><input type="text" value="1" style="width: 40px;text-align: center;"><button onclick="value--">+</button> -->
              <a-input-number id="inputNumber" v-model:value="value" :min="1" :max="999"/>
-        <button style="margin-left: 5px;background-color: red;" >加入购物车</button>
+        <button style="margin-left: 5px;background-color: red;" @click="addCard(shops)">加入购物车</button>
         </div>
        
         </div>
@@ -58,29 +58,41 @@
 
 
 <script setup lang="ts">
+
 import { ref } from 'vue';
 const value = ref<number>(1);
-import { useRoute } from 'vue-router';
+import { useRoute,useRouter } from 'vue-router';
 
 const route = useRoute()
 console.log(route.query);
 
+const router = useRouter()
+const addCard = (shops:any)=>{
+    
+
+    router.push(
+      
+    {
+      path:'/shopCard'})
+}
 
 
 
-let title = route.query.title
-let pics = route.query.pic
-console.log(pics);
-console.log(title);
+
+// 接收的商品
+let shop = route.query.shop
+// console.log(typeof shop) ;
+// 字符串转对象
+let shops = JSON.parse(shop)
+console.log(shops);
+
+
 // 渲染传递过来的图片
 const props = defineProps({
-    pics:{
+  picUrl:{
       type:String,
   }
 }
- 
-
-
 )
 
 

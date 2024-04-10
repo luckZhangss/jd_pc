@@ -1,0 +1,159 @@
+{
+  "shopCart": [
+    {
+      "id": 1,
+      "title": "餐客厅皮艺沙发售楼部接待室沙发单人多人沙发组合会员室沙发 灰色-280长沙发+圆凳*2+茶几",
+      "picUrl": "https://img12.360buyimg.com/jdcms/s460x460_jfs/t1/235965/23/3280/25868/655717dcF8d60543c/1e79e5e1aea3786c.jpg.avif",
+      "price": 888
+    },
+    {
+      "id": 2,
+      "title": "Paulmann P柏曼立式护眼台灯学习灯LED全光谱大路灯落地式灯儿童卧室书房",
+      "picUrl": "https://img20.360buyimg.com/jdcms/s460x460_jfs/t1/120975/7/44856/87012/661251b0Fcbbdf764/5cc39ae2f348b4f8.jpg.avif",
+      "price": 856
+    },
+    {
+      "id": 3,
+      "title": "佐粤真皮沙发 北欧牛皮沙发轻奢客厅头层皮小户型现代简约直排沙发 1.8米双人位【进口头层牛皮】",
+      "picUrl": "https://img30.360buyimg.com/jdcms/s460x460_jfs/t1/204628/23/42477/93779/660f68d5F6029d091/65ad8982b63ab3f3.jpg.avif",
+      "price": 999
+    },
+    {
+      "id": 4,
+      "title": "佐粤意式极简头层牛皮沙发简约小户型直排真皮沙发大坐深沙发客厅家具 单独脚踏 (接触面头层牛皮+全实木框架)",
+      "picUrl": "https://img20.360buyimg.com/jdcms/s460x460_jfs/t1/199793/22/39682/143089/660f68ccF1bb7da05/b78fd216b214449d.jpg.avif",
+      "price": 9792
+    },
+    {
+      "id": 5,
+      "title": "LANPARTE兰帕特车载手机拍摄支架第一视角吸盘直播汽车云台录像金属防抖 吸盘手机支架",
+      "picUrl": "https://img10.360buyimg.com/jdcms/s460x460_jfs/t1/137540/25/39842/109823/64f83e41Ffb4e9725/82c274602643ed31.jpg.avif",
+      "price": 667
+    }
+  ],
+  "shopping":[
+    {
+        "id": 1,
+        "title": "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
+        "picUrl": "https://img30.360buyimg.com/jdcms/s460x460_jfs/t1/162433/11/38114/159740/64a69427F33674f32/cf5fdb3c22954604.jpg.avif",
+        "price": 4300
+    },
+    {
+        "id": 2,
+        "title": "盯盯拍行车记录仪MINI7X 4K黑光夜视 华为海思AI芯片 索尼图像传感器",
+        "picUrl": "https://img11.360buyimg.com/jdcms/s460x460_jfs/t1/226232/24/16082/54973/661204acFc4dff93d/f9ebec13ed730b86.jpg.avif",
+        "price": 300
+    },
+    {
+        "id": 3,
+        "title": "行车记录仪降压线 24V12V转5V降压模块 带电瓶电池低压保护改装暗线 停车监控 12V24V转5",
+        "picUrl": "https://img10.360buyimg.com/jdcms/s460x460_jfs/t1/111768/1/9682/94485/5edb4f5dEb1559c60/ff64179c5aa6b088.jpg.avif",
+        "price": 1300
+    },
+    {
+        "id": 4,
+        "title": "碗家用2023新款奶油色餐具汤碗景德镇陶瓷碗碟单个新居入宅 【锤纹工艺】【高温釉下彩】",
+        "picUrl": "https://img30.360buyimg.com/jdcms/s460x460_jfs/t1/242742/22/4954/35108/65d6d311F2c52c308/e73e4352e6093e6a.jpg.avif",
+        "price": 1300
+    },
+    {
+        "id": 5,
+        "title": "荞行健汽车座垫四季通用星耀系列双面使用汽车座垫男女通用不带头枕 半套",
+        "picUrl": "https://img20.360buyimg.com/jdcms/s460x460_jfs/t1/146874/2/5578/166773/5f38a4ccE78147211/6598822a5dca83d5.jpg.avif",
+        "price": 800
+    },
+    {
+        "id": 6,
+        "title": "商用大号加厚不粘煎锅酒店大厨煎锅平底煎锅煤气灶电磁炉适用 18CM不粘煎锅一个送锅铲煤气灶用",
+        "picUrl": "https://img13.360buyimg.com/jdcms/s460x460_jfs/t1/235421/11/1894/61279/65479323F71ef0cda/a75bf279aecbf3a9.jpg.avif",
+        "price": 860
+    },
+    {
+        "id": 7,
+        "title": "吃饭碗家用高颜值陶瓷5英寸2023新款网红普通小汤碗加厚餐具 4.5英寸黑线春之恋碗4个装",
+        "picUrl": "https://img14.360buyimg.com/jdcms/s460x460_jfs/t1/133666/20/41053/28070/65d35216F487ca258/8f5a73074109e11e.jpg.avif",
+        "price": 8260
+    },
+    {
+        "id": 8,
+        "title": "Paulmann P柏曼护眼落地灯Luka Pro 儿童学生阅读灯卧室床头立式台地灯B1002",
+        "picUrl": "https://img20.360buyimg.com/jdcms/s460x460_jfs/t1/107460/9/51893/121925/6615f1ccF288eee3c/4bbc581b28fb15b2.jpg.avif",
+        "price": 900
+    },
+    {
+        "id": 9,
+        "title": "风渚客适用于适用于本田幻影150CB190R暴风眼摩托车前脚踏板战神踏脚踩 后左脚踏/带配件",
+        "picUrl": "https://img13.360buyimg.com/jdcms/s460x460_jfs/t1/142933/11/40229/65620/65095244F68975f6f/e47fe9b434548845.jpg.avif",
+        "price": 8900
+    },
+    {
+        "id": 10,
+        "title": "菲典森吧台桌收银台型简约柜台公司前台接待台美容店服装店奶茶店吧台 60CM暖白色",
+        "picUrl": "https://img30.360buyimg.com/jdcms/s460x460_jfs/t1/195379/37/40749/87433/6536a390Ffcd0f93c/d27ce25b376afb92.jpg.avif",
+        "price": 9900
+    },
+    {
+        "id": 11,
+        "title": "Paulmann P柏曼融烛台灯Crell 客厅卧室床头灯香薰无明火融蜡台灯",
+        "picUrl": "https://img13.360buyimg.com/jdcms/s460x460_jfs/t1/218467/9/37776/101405/661269acFea9b5909/8cedf88e29999da6.jpg.avif",
+        "price": 970
+    },
+    {
+        "id": 12,
+        "title": "世心家用电表箱透明插卡三相电表箱防水防雨塑料单相电表箱盒户外明装 单相一户不带空开位",
+        "picUrl": "https://img10.360buyimg.com/jdcms/s460x460_jfs/t1/113038/20/109/126045/5e87060aE1d7a6b3e/3b49b7bdefbad8e0.jpg.avif",
+        "price": 8888
+    },
+    {
+        "id": 13,
+        "title": "卡特马克甜甜圈不粘炒锅珐琅搪瓷炒菜锅具轻量厨具电磁炉燃气平底煎蒸牛排 煎炒锅【配蒸片】 28cm",
+        "picUrl": "https://img14.360buyimg.com/jdcms/s460x460_jfs/t1/136338/7/39313/106752/660cfb1eF39be3e3f/16f2b2c23442b9ac.png.avif",
+        "price": 1450
+    },
+    {
+        "id": 14,
+        "title": "Paulmann P柏曼筒灯Eos 嵌入式柔光环孔灯客厅卧室无主灯玄关灯射灯G0042",
+        "picUrl": "https://img11.360buyimg.com/jdcms/s460x460_jfs/t1/179313/13/44265/64574/66132c99Fc2e93b65/6221a582d4722167.jpg.avif",
+        "price": 8450
+    },
+    {
+        "id": 15,
+        "title": "多功能-家用大容量三层电蒸笼预约定时多层蒸馒头智能蒸煮 1层 22cm 机械单层",
+        "picUrl": "https://img14.360buyimg.com/jdcms/s460x460_jfs/t1/150890/13/34128/95486/65bdca13F084ec9c4/6f288440cc93c2ba.jpg.avif",
+        "price": 8450
+    }
+  ],
+  
+  "DetailsShop":[
+    {
+        "pic":"https://img14.360buyimg.com/n1/jfs/t1/150890/13/34128/95486/65bdca13F084ec9c4/6f288440cc93c2ba.jpg.avif",
+        "title":"多功能-家用大容量三层电蒸笼预约定时多层蒸馒头智能蒸煮 1层 22cm 机械单层",
+        "price":97.25,
+        "address":"贵州省贵阳市白云区",
+        "standards":
+            [
+            {
+                "standardsOne":"1层 22cm 机械单层" 
+            },
+            {
+                "standardsTwo":"1层 28cm 两蒸笼" 
+            },
+            {
+                "standardsThree":"1层 24cm 机械双层" 
+            }
+        ],
+        "byStages":[
+            {
+                "byStagesOne":"不分期"
+            },
+            {
+                "byStagesTwo":"33.6*3期"
+            },
+            {
+                "byStagesThree":"17.4*6期"
+            }
+        ]
+       
+    }
+  ]
+}
