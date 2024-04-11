@@ -10,11 +10,7 @@
         align-items: center;
       "
     >
-      <a-checkbox
-        v-model:checked="state.checkAll"
-        :indeterminate="state.indeterminate"
-        @change="onCheckAllChange"
-      >
+      <a-checkbox v-model:checked="state.checkAll" @change="onCheckAllChange">
         全选
       </a-checkbox>
       <div>商品</div>
@@ -25,52 +21,99 @@
     </div>
     <!-- 2 -->
     <div>
-        
-       <div class="second" v-for="item in data.shopCart" :key="item.id">
-       <a-checkbox-group v-model:checked="checked" :options="plainOptions">  </a-checkbox-group>
-   
-      <img :src="item.picUrl" alt="">
-      <span>{{ item.title }}</span>
-      <p>￥<span> {{ item.price }}</span></p>
-      <a-input-number
-        id="inputNumber"
-        v-model:value="value"
-        :min="1"
-        :max="999"
-      />
-      <p> ￥<span>9999</span> </p>
-      <a-button type="primary" danger>删除</a-button>
-  
-    </div>
+      <div class="second" v-for="(item, index) in shop" :key="item.id">
+        <a-checkbox-group >
+          <a-checkbox v-model="checked" @click="oneClick"></a-checkbox>
+        </a-checkbox-group>
 
-
-
-    <div class="balance">
-      <p>删除选中商品</p>
-      <p>清除购物车</p>
-      <p>总价:￥<span>999</span></p>
-      <a-button type="primary" danger>去结算</a-button>
+        <img :src="item.picUrl" alt="" />
+        <span>{{ item.title }}</span>
+        <p>
+          ￥<span> {{ item.price }}</span>
+        </p>
+        <a-input-number
+          id="inputNumber"
+          v-model:value="value"
+          :min="1"
+          :max="999"
+        ></a-input-number>
+        <p>￥<span>9999</span></p>
+        <a-button type="primary" danger @click="del(index)">删除</a-button>
+      </div>
+      <div class="balance">
+        <p>删除选中商品</p>
+        <p style="cursor: pointer" @click="clear(index)">清除购物车</p>
+        <p>总价:￥<span>999</span></p>
+        <a-button type="primary" danger>去结算</a-button>
+      </div>
     </div>
-    </div>
-    
   </div>
 </template>
 <script setup lang="ts">
-import axios from "axios";
-import { reactive, watch } from "vue";
-import { ref } from "vue";
+// import axios from "axios";
+import { reactive, ref, watch } from "vue";
 
 
+const value = ref<number>(1);
+// import { useRoute } from "vue-router";
+// 单选
+const checked = ref(true);
 
-const data = reactive({
-  shops:[]
-})
+const oneClick = (e)=>{
+  console.log(e);
+  
+}
+
+
+// 全选
+// const plainOptions = [""];
+const state = reactive({
+  checkAll: false,
+  checkedList: [],
+});
+const onCheckAllChange = (e: any) => {
+  console.log(e);
+  
+};
+// watch(
+//   () => state.checkedList,
+//   val => {
+//     // state.indeterminate = !!val.length && val.length < plainOptions.length;
+//     state.checkAll = val.length === plainOptions.length;
+//   },
+// );
+
+// const data = reactive({
+//   shops:[]
+// })
+
+let shops = localStorage.getItem("carts");
+console.log(shops);
+let shop = JSON.parse(shops);
+console.log(shop);
+
+// 删除商品，截取数组下标
+const del = (index: any) => {
+  console.log('删除了');
+  // console.log(index);
+
+  shop.splice(index, 1);
+  localStorage.setItem("carts", JSON.stringify(shop));
+  location.reload();
+};
+
+// 清空购物车
+const clear = (index) => {
+  shop.splice(index);
+  localStorage.setItem("carts", JSON.stringify(shop));
+  location.reload();
+};
 
 // 获取购物车数据
-axios.get('http://localhost:3000/shopCart').then((res)=>{
-  console.log(res);
-  data.shopCart = res.data
-})
+// axios.get('http://localhost:3000/shopCart').then((res)=>{
+//   console.log(res);
+//   data.shopCart = res.data
+// })
 
 // route 接收路由传过来的参数
 // const route = useRoute()
@@ -85,56 +128,39 @@ axios.get('http://localhost:3000/shopCart').then((res)=>{
 //   type:String
 // })
 
-const value = ref<number>(1);
-const plainOptions = [""];
-const state = reactive({
-  indeterminate: true,
-  checkAll: false,
-  checkedList: ["1","2","3"],
-});
+// const route = useRoute()
+// console.log(route.query);
+// let shops = route.query.shops
+// let shop = JSON.parse(shops)
+// console.log(shop);
+// localStorage.setItem('shop',JSON.stringify(shop))
 
-const checked = ref([])
 
-const onCheckAllChange = (e: any) => {
-  Object.assign(state, {
-    checkedList: e.target.checked ? plainOptions : [],
-    indeterminate: false,
-  });
-};
-watch(
-  () => state.checkedList,
-  (val) => {
-    state.indeterminate = !!val.length && val.length < plainOptions.length;
-    state.checkAll = val.length === plainOptions.length;
-  }
-);
 </script>
 
 <style scoped>
-
-
 .second {
   display: flex;
   justify-content: space-around;
   align-items: center;
   border: 1px solid;
 }
-.second>img{
+.second > img {
   width: 80px;
   height: 80px;
 }
-.second>span{
-    width: 10%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.second > span {
+  width: 10%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.balance{
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 80px;
+.balance {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 80px;
 }
-.balance>p{
+.balance > p {
   margin: 5px 10px;
 }
 </style>
