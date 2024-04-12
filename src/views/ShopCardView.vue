@@ -10,7 +10,7 @@
         align-items: center;
       "
     >
-      <a-checkbox v-model:checked="state.checkAll" @change="onCheckAllChange">
+      <a-checkbox >
         全选
       </a-checkbox>
       <div>商品</div>
@@ -20,12 +20,10 @@
       <div>操作</div>
     </div>
     <!-- 2 -->
-    <div>
+  
+    
       <div class="second" v-for="(item, index) in shop" :key="item.id">
-        <a-checkbox-group >
-          <a-checkbox v-model="checked" @click="oneClick"></a-checkbox>
-        </a-checkbox-group>
-
+        <a-checkbox  @change="(val)=>changeCheck(val,item)"></a-checkbox>
         <img :src="item.picUrl" alt="" />
         <span>{{ item.title }}</span>
         <p>
@@ -33,64 +31,55 @@
         </p>
         <a-input-number
           id="inputNumber"
-          v-model:value="value"
+          v-model:value="item.num"
           :min="1"
           :max="999"
-        ></a-input-number>
+        />
         <p>￥<span>9999</span></p>
         <a-button type="primary" danger @click="del(index)">删除</a-button>
+  
       </div>
       <div class="balance">
         <p>删除选中商品</p>
         <p style="cursor: pointer" @click="clear(index)">清除购物车</p>
-        <p>总价:￥<span>999</span></p>
+        <p>总价:￥<span></span></p>
         <a-button type="primary" danger>去结算</a-button>
       </div>
     </div>
-  </div>
+
 </template>
 <script setup lang="ts">
 // import axios from "axios";
-import { reactive, ref, watch } from "vue";
+import { computed, reactive, ref, watch } from "vue";
+
+let shops = localStorage.getItem("carts");
+console.log(shops);
+let shop = JSON.parse(shops);
+// console.log('11111111111',shop);
 
 
-const value = ref<number>(1);
+// const sum = ref<number>(1);
 // import { useRoute } from "vue-router";
-// 单选
-const checked = ref(true);
 
-const oneClick = (e)=>{
-  console.log(e);
+
+//多选框 
+const changeCheck =(val,item)=>{
+  // console.log('2222',val);
+  // console.log('aaaa',shop);
+  console.log('111111111',val,item);
   
 }
 
-
 // 全选
-// const plainOptions = [""];
-const state = reactive({
-  checkAll: false,
-  checkedList: [],
-});
-const onCheckAllChange = (e: any) => {
-  console.log(e);
-  
-};
-// watch(
-//   () => state.checkedList,
-//   val => {
-//     // state.indeterminate = !!val.length && val.length < plainOptions.length;
-//     state.checkAll = val.length === plainOptions.length;
-//   },
-// );
+
+
+
 
 // const data = reactive({
 //   shops:[]
 // })
 
-let shops = localStorage.getItem("carts");
-console.log(shops);
-let shop = JSON.parse(shops);
-console.log(shop);
+
 
 // 删除商品，截取数组下标
 const del = (index: any) => {

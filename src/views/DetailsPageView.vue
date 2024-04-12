@@ -76,7 +76,7 @@ const router = useRouter();
 
 
 
-// 2024.04/11   22:15分才想通
+// 2024.04/11   22:15分
 
 let preserveArr = JSON.parse(localStorage.getItem("carts"));
 
@@ -84,9 +84,6 @@ let preserveArr = JSON.parse(localStorage.getItem("carts"));
 const addCard = (shops: any) => {
 
     localStorage.setItem('carts',JSON.stringify([shops]))    // []
-
-// let preserveArr = JSON.parse(localStorage.getItem("carts"));
-
 if(preserveArr){
    let currentInfo = preserveArr.find(el=>{
     return el.id === shops.id
