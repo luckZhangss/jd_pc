@@ -31,7 +31,7 @@
         <div>
           <div>
             <p>
-              京东价 ￥<span>{{ shops.price }}</span>
+              京东价 ￥<span>{{ shops.price.toFixed(2) }}</span>
             </p>
             <span>累计评价: 999</span>
           </div>
@@ -44,12 +44,9 @@
         <p>选择规格: 550ml</p>
         <div style="display: flex">
           <!-- <button onclick="value--">-</button><input type="text" value="1" style="width: 40px;text-align: center;"><button onclick="value--">+</button> -->
-          <a-input-number
-            id="inputNumber"
-            v-model:value="value"
-            :min="1"
-            :max="999"
-          />
+          <button @click="shops.num--">-</button>
+          {{ shops.num }}
+          <button @click="shops.num++">+</button>
           <button
             style="margin-left: 5px; background-color: red"
             @click="addCard(shops)"
@@ -63,94 +60,54 @@
 </template>
 
 <script setup lang="ts">
-// import axios from 'axios';
 import { ref } from "vue";
-const value = ref<number>(1);
+// const value = ref<number>(1);
+import { userCartStore } from "@/stores/cart";
+const cartStore = userCartStore()
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 console.log(route.query);
-
-const router = useRouter();
-
-
-
-
-// 2024.04/11   22:15分
-
-let preserveArr = JSON.parse(localStorage.getItem("carts"));
-
-// 添加到购物车商品
-const addCard = (shops: any) => {
-
-    localStorage.setItem('carts',JSON.stringify([shops]))    // []
-if(preserveArr){
-   let currentInfo = preserveArr.find(el=>{
-    return el.id === shops.id
-   })
-   if(currentInfo){
-    currentInfo.num = currentInfo.num+1
-    localStorage.setItem('carts',JSON.stringify(preserveArr))
-   }else{
-    shops.num = 1
-    localStorage.setItem('carts',JSON.stringify([shops,...preserveArr]))
-   }
-   
-}else{
-  shops.num =1
-  localStorage.setItem('carts',JSON.stringify([shops]) )
-}
-// 获取本地存储的carts
-// let preserve = JSON.parse(localStorage.getItem("carts"));
-// let preserveArr = Object.keys(preserve)
-// console.log('qwe',typeof preserveArr);
-
-  
-
-  // axios.get('http://localhost:3000/shopCart',shops).then((res)=>{
-  //   console.log(res);
-  // 将商品存入本地，名称为carts
-  // localStorage.setItem('carts',JSON.stringify(product))
-  // 点击加入购物车商品，如果本地有查找本地商品和目标商品id是否相同
-  // if (preserveArr) {
-  //   console.log('dffdcg',preserveArr);
-  
-    
-  //   let currentInfo = preserveArr.find(el =>{
-  //     return el.id === shops.id;
-  //   });
-  //   // 如果id相同，加入购物车只加数量sum ,加完后存入本地
-  //   if (currentInfo) {
-  //     currentInfo.num = currentInfo.num + 1;
-  //     localStorage.setItem("carts", JSON.stringify(preserveArr));
-  //   } else {
-  //     // 否则就是没有存入的商品 默认数量为1，将新商品和旧商品一起存入本地，
-  //     shops.num = 1;
-  //     localStorage.setItem("carts", JSON.stringify([shops, ...preserveArr]));
-  //   }
-  // } 
-  
-  // else {
-  //   product.num = 1;
-  //   localStorage.setItem("carts", JSON.stringify([product]));
-  // }
-  console.log("加购成功");
-
-
-  // })
-
-  router.push({
-    path: "/shopCard",
-   
-  });
-};
-
-// 接收的商品
 let shop = route.query.shop;
 // console.log(typeof shop) ;
 // 字符串转对象
 let shops = JSON.parse(shop);
-console.log(shops);
+
+console.log("111", shops);
+const router = useRouter();
+
+// 2024.04/11   22:15分
+
+// let preserveArr = JSON.parse(localStorage.getItem("carts"));
+
+// 添加到购物车商品
+const addCard = (shops:Object) => {
+
+//   localStorage.setItem("carts", JSON.stringify([shops])); // []
+//   if (preserveArr) {
+//     let currentInfo = preserveArr.find((el) => {
+//       return el.id === shops.id;
+//     });
+//     if (currentInfo) {
+//       currentInfo.num = currentInfo.num + 1;
+//       localStorage.setItem("carts", JSON.stringify(preserveArr));
+//     } else {
+//       shops.num = 1;
+//       localStorage.setItem("carts", JSON.stringify([shops, ...preserveArr]));
+//     }
+
+// }
+
+
+    router.push({
+    path: "/shopCart",
+    // query:{
+    //   shop:JSON.stringify(shops)
+    // }
+  });
+
+}
+// 接收的商品
 
 // 渲染传递过来的图片
 // const props = defineProps({

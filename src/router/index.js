@@ -36,9 +36,9 @@ const router = createRouter({
     //   component:()=>import('../views/LoginView.vue')
     // },
     {
-      path:'/shopCard',
-      name:'shopCard',
-      component:()=>import('../views/ShopCardView.vue')
+      path:'/shopCart',
+      name:'shopCart',
+      component:()=>import('../views/ShopCartView.vue')
     },
     {
       path:'/detailsPage',

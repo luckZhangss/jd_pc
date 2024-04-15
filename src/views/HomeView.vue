@@ -1,5 +1,7 @@
 <template>
+   <!-- <h3>欢迎{{ user.username }}!!!</h3> -->
   <div class="box">
+    
     <!-- 上 -->
     <div class="top">
       <!-- logo -->
@@ -16,7 +18,7 @@
         <!-- nav栏 -->
         <div class="nav">
           <ul>
-            <li v-for="item in items">{{ item.message }}</li>
+            <li v-for="item in data.nav">{{ item.title }}</li>
           </ul>
         </div>
       </div>
@@ -25,26 +27,26 @@
         style="
           border: solid 1px;
           margin-left: 60px;
-          padding: 6px;
+          padding: 10px;
           cursor: pointer;
         "
       >
-        <a-badge count="0" show-zero>
-          <a-avatar shape="square" size="large"><HeartTwoTone /></a-avatar>
+      
+        <a-badge :count="cartStore.cartList.length" show-zero >
+          <a-avatar shape="square" size="small" ><ShoppingCartOutlined /></a-avatar>
         </a-badge>
-        <a style="text-decoration: none;color: black;" href="./shopCard">我的购物车</a>
+        <a style="text-decoration: none;color: black;" href="./shopCart">我的购物车</a>
       </div>
     </div>
     <!-- 中 -->
     <div class="middle">
       <!-- tab栏 -->
-
       <div class="midd_tab">
         <ul>
-          <li v-for="item in tabList">
-            {{ item.tabMessage }}
+          <li v-for="item in data.tabList">
+            {{ item.tabName }}
             <!-- <span>家用电器</span> -->
-            <div class="p1">{{ item.text }}</div>
+            <div class="p1">{{ item.tabContent }}</div>
           </li>
         </ul>
       </div>
@@ -62,8 +64,8 @@
               <right-circle-outlined />
             </div>
           </template>
-          <div class="swip_img" v-for="(item, index) in middSwip" :key="index">
-            <img :src="item.url" />
+          <div class="swip_img" v-for="(item, index) in data.middSwip" :key="index">
+            <img :src="item.picUrl" />
           </div>
         </a-carousel>
       </div>
@@ -77,7 +79,7 @@
               src="https://img14.360buyimg.com/imagetools/jfs/t1/66037/3/24346/9414/64b11b21F51d90361/8f015973cbb7de8d.png"
               alt=""
             />
-            <p><a href="/login">登录 注册</a></p>
+            <p><a href="/">登录 注册</a></p>
           </div>
           <div>
             <img
@@ -380,9 +382,9 @@
         <!-- 四层 -->
         <div class="midd_tim_four">
           <div>
-            <div v-for="item in fourInfo" :key="item">
-              <img :src="item.url" alt="" />
-              <p>{{ item.p }}</p>
+            <div v-for="item in data.Otherfunction" :key="item">
+              <img :src="item.picUrl" alt="" />
+              <p>{{ item.name }}</p>
             </div>
           </div>
         </div>
@@ -394,10 +396,10 @@
     </p>
     <div class="recom">
       <div class="like">
-        <div v-for="item in likeInfo" :key="item">
+        <div v-for="item in data.guessLike" :key="item">
           <div>
-            <span>{{ item.span }}</span>
-            <p>{{ item.p }}</p>
+            <span>{{ item.bigTitle }}</span>
+            <p>{{ item.title }}</p>
           </div>
         </div>
       </div>
@@ -407,225 +409,119 @@
       <div v-for="item in data.shopping" :key="item.id"  @click="goDetails(item)">
         <img :src="item.picUrl" />
         <p>{{item.title }}</p>
-        <p>￥<span>{{item.price}}</span>
+        <p>￥<span>{{item.price.toFixed(2)}}</span>
           </p>
       </div>
     </div>
+
+    <!-- 回到顶部 -->
+    <span class="goTop" id="btn" @click="goTop">回到顶部</span>
+
     <!-- 下 -->
   </div>
 </template>
 
 <script lang="ts" setup>
+import {userCartStore} from '../stores/cart'
+import {
+  LeftCircleOutlined,
+  RightCircleOutlined,
+  ShoppingCartOutlined,
+} from "@ant-design/icons-vue";
+import { reactive, ref } from "vue";
+import axios from "axios";
 import { useRouter } from "vue-router";
+
+
+
 const router = useRouter()
-
+const cartStore = userCartStore()
 const goDetails =(item)=>{
-  // console.log(item);
-  
-  // router.push({
-  //       path: '/detailsPage',
-  //       query:{
-  //       shop:item,
-  //        title:item.text,
-  //        pic:item.url,
-  //        price:item.price
-  //       }
-  //   })
-
     router.push({
       path:'/detailsPage',
       query:{
         shop:JSON.stringify(item)
-
       }
     })
-
-
 }
 
-import {
-  LeftCircleOutlined,
-  RightCircleOutlined,
-  HeartTwoTone,
-} from "@ant-design/icons-vue";
+// 本地获取存储的用户信息
+let userInfo = localStorage.getItem('userInfo')
+let user = JSON.parse(userInfo)
+console.log('1111',user);
 
-import { reactive, ref } from "vue";
-import axios from "axios";
+// 回到顶部
+let btn = document.querySelector('#btn')
+// 监听页面滚动
+window.onscroll = ()=>{
+  let currHeight = document.documentElement.scrollTop
+  if(currHeight >300){
+    document.querySelector("#btn").style.display = "block";
+  }else{
+    document.querySelector("#btn").style.display = "none";
+  }
+}
+const goTop = ()=>{
+  document.body.scrollTop =document.documentElement.scrollTop = 0
+}
+
+
+
+// 获取购物车数据
+axios.get('http://localhost:3000/shopCart').then((res)=>{
+  cartStore.addCart(res.data)
+})
+
 const value = ref<string>("");
-// nav
-const items = ref([
-  {
-    message: "电脑数码",
-  },
-  {
-    message: "京东手机",
-  },
-  {
-    message: "拍卖",
-  },
-  {
-    message: "京东家电",
-  },
-  {
-    message: "京东超市",
-  },
-  {
-    message: "京东生鲜",
-  },
-  {
-    message: "大牌奥莱",
-  },
-  {
-    message: "京东五金城",
-  },
-  {
-    message: "进口好物",
-  },
-]);
-// tab
-const tabList = ref([
-  {
-    tabMessage: "家用电器",
-    text: "ssssssssss",
-  },
-  {
-    tabMessage: "手机/运营商/电脑",
-    text: "sssssssppppppsss",
-  },
-  {
-    tabMessage: "手机/运营商/电脑",
-    text: "qwqqqqqqqq",
-  },
-  {
-    tabMessage: "手机/运营商/电脑",
-    text: "kkkkkkkkkkkkkkkkkkk",
-  },
-  {
-    tabMessage: "手机/运营商/电脑",
-    text: "vvvvvvvvvvvvvvvvv",
-  },
-  {
-    tabMessage: "手机/运营商/电脑",
-    text: "mmmmmmmmmmmmmm",
-  },
-  {
-    tabMessage: "手机/运营商/电脑",
-    text: "mmmmmmmmmmmmmm7",
-  },
-  {
-    tabMessage: "手机/运营商/电脑",
-    text: "mmmmmmmmmmmmmm6",
-  },
-  {
-    tabMessage: "手机/运营商/电脑",
-    text: "mmmmmmmmmmmmmm5",
-  },
-  {
-    tabMessage: "手机/运营商/电脑",
-    text: "mmmmmmmmmmmmmm4",
-  },
-  {
-    tabMessage: "手机/运营商/电脑",
-    text: "mmmmmmmmmmmmmm2",
-  },
-  {
-    tabMessage: "手机/运营商/电脑",
-    text: "mmmmmmmmmmmmmm4",
-  },
-]);
-// 轮播图
-const middSwip = ref([
-  {
-    url: "https://imgcps.jd.com/img-cubic/creative_server_cia_jdcloud/v2/2000322/10066754549304/FocusFullshop/CkJqZnMvdDEvMjA3MTEwLzYvNDA4MDEvMTU0MzIvNjVmYjM5NDFGNDQ1ZWE5ZTkvMmVkZTRjYWNkMWQ2MzY2OS5wbmcSCTQtdHlfMF81NTABOMKLekIYChLmtbfph4_lsJbotKfmnaXooq0QARgBQhYKEueyvuW9qeS4jeWuuemUmei_hxACQhAKDOeri-WNs-aKoui0rRAGQgoKBuS8mOmAiRAHWLjs0Mr9pAI/cr/s/q.jpg",
-  },
-  {
-    url: "https://img10.360buyimg.com/pop/s1180x940_jfs/t1/226091/13/8500/93547/658d3b59F01b1f7ac/e835e81062f5ca73.jpg.avif",
-  },
-  {
-    url: "https://imgcps.jd.com/ling-cubic/ling4/lab/amZzL3QxLzEyNjU0OS8xMS8zODEyMi80MTU3MTcvNjRlYzY2YmVGNTIzNjYxMGUvMTI5NTM1MDFiMDI3ZWM2NC5wbmc/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/1635185254164787202/cr/s/q.jpg",
-  },
-]);
+
 // 商品
 const data = reactive({
-  shopping:[]
+  shopping:[],
+  guessLike:[],
+  middSwip:[],
+  Otherfunction:[],
+  nav:[],
+  tabList:[]
 });
+
+// tab
+axios.get('http://localhost:3000/tabList').then((res)=>{
+  console.log(res);
+  data.tabList = res.data
+})
+// nav
+axios.get('http://localhost:3000/nav').then((res)=>{
+  console.log(res);
+  data.nav = res.data
+})
+
 // 请求获取商品详情
 axios.get('http://localhost:3000/shopping').then((res)=>{
   console.log(res);
   data.shopping = res.data
 })
-
-
-
-
+// Otherfunction
+axios.get('http://localhost:3000/Otherfunction').then((res)=>{
+  console.log(res);
+  data.Otherfunction = res.data
+  
+})
+// 猜你喜欢
+axios.get('http://localhost:3000/guessLike').then((res)=>{
+  console.log(res);
+  data.guessLike = res.data
+})
+// 轮播图
+axios.get('http://localhost:3000/swiper').then((res)=>{
+  console.log(res);
+  data.middSwip = res.data
+})
 
 const onSearch = (searchValue: string) => {
   console.log("use value", searchValue);
   console.log("or use this.value", value.value);
 };
-// 猜你喜欢
-const likeInfo = ref([
-  {
-    span: "精选",
-    p: "猜你喜欢",
-  },
-  {
-    span: "智能先锋",
-    p: "大电器城",
-  },
-  {
-    span: "居家优品",
-    p: "品质生活",
-  },
-  {
-    span: "超市百货",
-    p: "百货生鲜",
-  },
-  {
-    span: "时尚达人",
-    p: "美妆穿搭",
-  },
-  {
-    span: "进口好物",
-    p: "京东国际",
-  },
-]);
 
-// middle_tim_four 第四层
-const fourInfo = ref([
-  {
-    url: "https://m.360buyimg.com/babel/jfs/t1/105718/32/47548/4135/6601555fFdbb76302/ce8e1355e08435d0.png",
-    p: "礼品卡",
-  },
-  {
-    url: "https://m.360buyimg.com/babel/jfs/t1/245377/11/6502/4819/66015572F6a2bfe2e/4ea919942857b414.png",
-    p: "礼品卡",
-  },
-  {
-    url: "https://m.360buyimg.com/babel/jfs/t1/235866/12/13511/4965/6601558bFea6e3da9/eef2630c4a64e1c9.png",
-    p: "话费",
-  },
-  {
-    url: "https://m.360buyimg.com/babel/jfs/t1/244809/25/6038/6141/66015785F20dc859f/5a558f1115431306.png",
-    p: "游戏",
-  },
-  {
-    url: "https://m.360buyimg.com/babel/jfs/t1/238494/28/6797/4809/660157afFfc6d74bd/46cdd6392cafe0f0.png",
-    p: "酒店",
-  },
-  {
-    url: "https://m.360buyimg.com/babel/jfs/t1/60865/19/20309/4778/660157d4F65db1655/b869b66cd4a18079.png",
-    p: "云建站",
-  },
-  {
-    url: "https://m.360buyimg.com/babel/jfs/t1/189590/5/43143/7643/660157ebF638a43d9/b2843ee17c84c1b4.png",
-    p: "五金城",
-  },
-  {
-    url: "https://m.360buyimg.com/babel/jfs/t1/204343/6/40409/5370/66015823Fe443972a/bebfba4042fbaef5.png",
-    p: "PLUS会员",
-  },
-]);
 // 计时器
 const onFinish = () => {
   console.log("finished!");
@@ -729,6 +625,14 @@ a{
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
+}
+.shop > div >:nth-child(3){
+  color:red;
+}
+.shop > div >:nth-child(3)>span{
+  font-size: 18px;
+  font-weight: 600;
+  color: #e1251b;
 }
 
 .like > div {
@@ -1098,4 +1002,16 @@ a{
 :deep(.slick-slide h3) {
   color: #fff;
 }
+// 回到顶部
+.goTop{
+  position: fixed;
+  display: none;
+  width: 50px;
+  padding:5px;
+ background-color: #e1251b;
+  cursor: pointer;
+  top: 500px;
+  left: 1400px;
+}
+
 </style>

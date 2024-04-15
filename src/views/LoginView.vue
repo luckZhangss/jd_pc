@@ -93,6 +93,7 @@ const onFinish = (values: any) => {
     console.log(res);
     if(res.data.code === 0){
       localStorage.setItem('userInfo',JSON.stringify(res.data.data))
+      localStorage.setItem('token',res.data.token)
       globalProxy.$message.success({
         content:'登录成功',
         duration:2,
