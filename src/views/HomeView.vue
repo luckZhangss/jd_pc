@@ -1,7 +1,20 @@
 <template>
-   <!-- <h3>欢迎{{ user.username }}!!!</h3> -->
+  
   <div class="box">
-    
+     <div class="user"><h3>欢迎你 <span style="color: red;">【{{ user.username }}】</span> 登录!!!</h3>
+      <div style="font-size: 14px;margin-left: 20px;cursor: pointer;color: blue;"  >
+      <a-popconfirm
+    title="您确定要注销嘛?"
+    ok-text="确认"
+    cancel-text="取消"
+    @confirm="confirm"
+    @cancel="cancel"
+    style="cursor: pointer;"
+  >
+    退出登录
+  </a-popconfirm>
+      </div>
+    </div> 
     <!-- 上 -->
     <div class="top">
       <!-- logo -->
@@ -35,7 +48,7 @@
         <a-badge :count="cartStore.cartList.length" show-zero >
           <a-avatar shape="square" size="small" ><ShoppingCartOutlined /></a-avatar>
         </a-badge>
-        <a style="text-decoration: none;color: black;" href="./shopCart">我的购物车</a>
+        <a style="text-decoration: none;color: black;" @click="goCart">我的购物车</a>
       </div>
     </div>
     <!-- 中 -->
@@ -431,7 +444,29 @@ import {
 import { reactive, ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { message } from 'ant-design-vue';
+// // 退出登录
+const confirm = (e: MouseEvent) => {
+  console.log(e);
+  localStorage.removeItem('token')
+  localStorage.removeItem('userInfo')
+  router.push('/')
+  message.success('已注销');
+};
+// 
+const cancel = (e: MouseEvent) => {
+  console.log(e);
+  message.error('已取消');
+};
 
+// 去购物车
+const goCart = ()=>{
+  if(localStorage.getItem('token')&& localStorage.getItem('userInfo')){
+    router.push('/shopCart')
+  }else{
+      router.push('/')
+  }
+}
 
 
 const router = useRouter()
@@ -461,9 +496,17 @@ window.onscroll = ()=>{
     document.querySelector("#btn").style.display = "none";
   }
 }
+// 回顶部
 const goTop = ()=>{
   document.body.scrollTop =document.documentElement.scrollTop = 0
 }
+
+// 退出登录
+// const goOut = ()=>{
+//   localStorage.removeItem('token')
+//   localStorage.removeItem('userInfo')
+//   router.push('/')
+// }
 
 
 
@@ -606,7 +649,7 @@ a{
   //  background-color: #e1251b;
   background-color: white;
   width: 31vh;
-  height: 45vh;
+  height: 46.5vh;
   margin: 5px 6px;
 }
 .shop > div > img {
@@ -872,8 +915,8 @@ a{
   width: 65%;
   height: 60vh;
   position: absolute;
-  left: 360px;
-  top: 130px;
+  left: 365px;
+  top: 172px;
   display: none;
 }
 
@@ -1013,5 +1056,15 @@ a{
   top: 500px;
   left: 1400px;
 }
+.user{
+  text-align: center;
+  display: flex;
+  justify-content: end;
+  margin-right: 50px;
+  height:40px;
+  line-height: 40px;
+  font-size: 20px;
 
+
+}
 </style>

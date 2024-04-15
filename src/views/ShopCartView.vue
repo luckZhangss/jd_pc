@@ -1,5 +1,10 @@
 <template>
   <div>
+    <!-- 返回首页 -->
+    <div style="margin: 5px 0 10px;cursor: pointer;">
+       <a href="/home" style="text-decoration: none;">返回首页</a>
+    </div>
+   
     <div
       style="
         width: 100%;
@@ -32,7 +37,7 @@
       <div>
          <button @click="item.num--"  :disabled="item.num ===1">-</button>
          <!-- {{ item.num }} -->
-         <input type="text" v-model="item.num" style="width: 50px;text-align: center; text-decoration: none;"/>
+         <input type="text" v-model="item.num" style="width: 50px;text-align: center;border: none; text-decoration: none;"/>
       <button @click="item.num++">+</button>
       </div>
      
@@ -103,7 +108,8 @@ const checkAll = ()=>{
   }
 }
  const text = '您确定要删除嘛？';
-  const confirm = () => {
+  const confirm = (index) => {
+    cartStore.cartList.splice(index,1)
     message.info('已删除');
     
   };
@@ -112,16 +118,10 @@ const del = (id,index)=>{
   // axios.delete('http://localhost:3000/shopCart',id).then((res)=>{
   //   console.log(res);
   // })
-  
-  cartStore.cartList.splice(index,1)
- 
 }
 
-const num = ref<number>(1);
+
 // import { useRoute } from "vue-router";
-const changeNum = (e) => {
-  console.log("222", e);
-};
 
 
 

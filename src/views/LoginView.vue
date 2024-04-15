@@ -14,6 +14,7 @@
         <a-form-item
           label="Username"
           name="username"
+          @keypress.enter="login"
           :rules="[{ required: true, message: '请输入用户名' }]"
         >
           <a-input v-model:value="formState.username">
@@ -26,6 +27,7 @@
         <a-form-item
           label="Password"
           name="password"
+          @keypress.enter="login"
           :rules="[{ required: true, message: '请输入密码!' }]"
         >
           <a-input-password v-model:value="formState.password">
@@ -143,6 +145,16 @@ const onFinish = (values: any) => {
   console.log("Success:", values);
 };
 
+
+// 回车键登录
+const login = ()=>{
+  document.onkeydown = (e)=>{
+    if(e.keyCode ===13){
+      router.push("/");
+    }
+  }
+}
+
 const onFinishFailed = (errorInfo: any) => {
   console.log("Failed:", errorInfo);
 };
@@ -151,6 +163,11 @@ const onFinishFailed = (errorInfo: any) => {
 const disabled = computed(() => {
   return !(formState.username && formState.password);
 });
+
+
+
+
+
 </script>
 <style scoped>
 .box {
