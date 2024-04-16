@@ -33,6 +33,7 @@ export const userCartsStore = defineStore({
   },
   actions: {
     addShop(shops){
+  
       this.shop.push(shops)
     },
 

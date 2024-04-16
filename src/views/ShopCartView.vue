@@ -100,7 +100,7 @@ import { storeToRefs } from "pinia";
 
 const cartStores = userCartsStore();
 
-import axios from "axios";
+// import axios from "axios";
 import { reactive, ref, watch } from "vue";
 
 // import {useRoute} from 'vue-router'

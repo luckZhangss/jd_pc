@@ -68,17 +68,20 @@
 // import { ref } from "vue";
 // const value = ref<number>(1);
 import { userCartsStore } from "@/stores/carts";
-import { reactive } from "vue";
+import { reactive,ref } from "vue";
 const cartStores = userCartsStore();
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 console.log(route.query);
+// 传过来的参数 shop
 let shop = route.query.shop;
 // console.log(typeof shop) ;
-// 字符串转对象
+
+// 字符串转对象为shops
 let shops = JSON.parse(shop);
 
+// 当路由传参接收到参数对象后，失去响应式，可以给该对象外层套一层对象，解决失去响应问题
 let shops1 = reactive({
   shops
 })
@@ -90,12 +93,24 @@ const router = useRouter();
 
 // let preserveArr = JSON.parse(localStorage.getItem("carts"));
 
+
+
+// const cart = ref([])
 // 通过pinia添加到购物车商品
 const addCard = (shops: Object) => {
+  
   if (cartStores.shop.includes(shops)) {
     cartStores.addItemToArray(shops);
   } else {
-    cartStores.addShop(shops);
+        const index = cartStores.shop.findIndex((item) => item.id === shops.id)
+        if (index !== -1) {
+            // 购物车中已有该商品，只增加数量
+           cartStores.shop[index].num++;
+          } else {
+            // 购物车中没有该商品，添加到购物车
+            cartStores.shop.push({ ...shops, num: 1 });
+          }
+    // cartStores.addShop(shops);
   }
 
   console.log("11111", cartStores.shop);
