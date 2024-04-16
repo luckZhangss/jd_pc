@@ -37,7 +37,10 @@
       <div>
          <button @click="item.num--"  :disabled="item.num ===1">-</button>
          <!-- {{ item.num }} -->
-         <input type="text" v-model="item.num" style="width: 50px;text-align: center;border: none; text-decoration: none;"/>
+        
+          <input type="text"  v-model="item.num" style="width: 50px;text-align: center; text-decoration: none;"/>
+
+         
       <button @click="item.num++">+</button>
       </div>
      
@@ -56,12 +59,13 @@
 
     </div>
     <div class="balance" v-if="cartList.length>0">
-      <p>删除选中商品</p>
+      <p @click="selectShop(index)" style="cursor: pointer;">删除选中商品</p>
       <p style="cursor: pointer" @click="clear(index)">清除购物车</p>
-      <p>总计:￥<span>{{total.price  }}</span></p>
+      <p>总计:￥<span>{{(total.price).toFixed(2)  }}</span></p>
       <p>数量：<span>{{ total.number }}</span></p>
       <a-button type="primary" danger>去结算</a-button>
     </div>
+     <h1 style="text-align:center ;align-items: center;" v-else>当前没有任何商品</h1>
   </div>
 </template>
 <script setup lang="ts">
@@ -96,6 +100,10 @@ axios.get('http://localhost:3000/shopCart').then((res)=>{
 
 
 //  cartStore.addCart(shop)
+
+// 删除选中商品
+
+
 
 
 const checkAll = ()=>{

@@ -22,7 +22,7 @@ export const userCartStore = defineStore({
       this.cartList.forEach((v) => {
         if (this.select.indexOf(v.id) != -1) {
           total.price += v.num * v.price;
-          total.number += this.select.length && v.num;
+          total.number += Number(this.select.length && v.num);
         }
       });
       return total;
@@ -68,5 +68,7 @@ export const userCartStore = defineStore({
         this.select.push(id);
       }
     },
+    // 删除选中商品
+   
   },
 });
