@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- 返回首页 -->
-    <div style="margin: 5px 0 10px;cursor: pointer;">
-       <a href="/home" style="text-decoration: none;">返回首页</a>
+    <div style="margin: 5px 0 10px; cursor: pointer">
+      <a href="/home" style="text-decoration: none">返回首页</a>
     </div>
-   
+
     <div
       style="
         width: 100%;
@@ -15,7 +15,7 @@
         align-items: center;
       "
     >
-      <a-checkbox v-model:checked="isChecked" @change="checkAll" >
+      <a-checkbox v-model:checked="isChecked" @change="checkAll">
         全选
         <!-- {{ isChecked }} -->
       </a-checkbox>
@@ -27,53 +27,79 @@
     </div>
     <!-- 2 -->
 
-    <div class="second" v-for="(item, index) in cartList" :key="item.id" v-if="cartList.length>0">
-      <a-checkbox @change="cartStore.itemChecked(index)" v-model:checked="item.check"></a-checkbox>
+    <div
+      class="second"
+      v-for="(item, index) in shop"
+      :key="item.id"
+      v-if="shop.length > 0"
+    >
+      <a-checkbox
+        @change="cartStores.itemChecked(index)"
+        v-model:checked="item.check"
+      ></a-checkbox>
       <img :src="item.picUrl" alt="" />
       <span>{{ item.title }}</span>
       <p>
         ￥<span> {{ item.price }}</span>
       </p>
       <div>
-         <button @click="item.num--"  :disabled="item.num ===1">-</button>
-         <!-- {{ item.num }} -->
-        
-          <input type="text"  v-model="item.num" style="width: 50px;text-align: center; text-decoration: none;"/>
+        <button @click="item.num--" :disabled="item.num === 1">-</button>
+        <!-- {{ item.num }} -->
 
-         
-      <button @click="item.num++">+</button>
+        <input
+          type="text"
+          v-model="item.num"
+          style="width: 50px; text-align: center; text-decoration: none"
+        />
+
+        <button @click="item.num++">+</button>
       </div>
-     
+
       <p>
         ￥<span>{{ (item.num * item.price).toFixed(2) }}</span>
       </p>
-      
-      <a-popconfirm placement="top" ok-text="Yes" cancel-text="No" @confirm="confirm">
-        <a-button type="primary" danger @click="del(item.id,index)">删除</a-button>
+
+      <a-popconfirm
+        placement="top"
+        ok-text="Yes"
+        cancel-text="No"
+        @confirm="confirm"
+      >
+        <a-button type="primary" danger @click="del(item.id, index)"
+          >删除</a-button
+        >
         <template #title>
           <p>{{ text }}</p>
         </template>
-        
       </a-popconfirm>
-
-
     </div>
-    <div class="balance" v-if="cartList.length>0">
-      <p @click="selectShop(index)" style="cursor: pointer;">删除选中商品</p>
+    <div class="balance" v-if="shop.length > 0">
+      <p style="cursor: pointer">删除选中商品</p>
       <p style="cursor: pointer" @click="clear(index)">清除购物车</p>
-      <p>总计:￥<span>{{(total.price).toFixed(2)  }}</span></p>
-      <p>数量：<span>{{ total.number }}</span></p>
+      <p>
+        总计:￥<span>{{ total.price.toFixed(2) }}</span>
+      </p>
+      <p>
+        数量：<span>{{ total.number }}</span>
+      </p>
       <a-button type="primary" danger>去结算</a-button>
     </div>
-     <h1 style="text-align:center ;align-items: center;" v-else>当前没有任何商品</h1>
+    <h1 style="text-align: center; align-items: center" v-else>
+      当前没有任何商品
+    </h1>
   </div>
 </template>
 <script setup lang="ts">
-import { message } from 'ant-design-vue';
+import { message } from "ant-design-vue";
 
-import { userCartStore } from "@/stores/cart";
+// import { userCartStore } from "@/stores/cart";
+import { userCartsStore } from "@/stores/carts";
+
 import { storeToRefs } from "pinia";
-const cartStore = userCartStore()
+// const cartStore = userCartStore()
+
+const cartStores = userCartsStore();
+
 import axios from "axios";
 import { reactive, ref, watch } from "vue";
 
@@ -88,50 +114,56 @@ import { reactive, ref, watch } from "vue";
 // let shop = JSON.parse(shops);
 // console.log('555',shops);
 
+// let {cartList,isChecked,total} = storeToRefs(cartStore)
 
-let {cartList,isChecked,total} = storeToRefs(cartStore)
+let { shop, isChecked, total } = storeToRefs(cartStores);
 
 // 获取购物车数据
-axios.get('http://localhost:3000/shopCart').then((res)=>{
-  console.log(res.data);
-  cartStore.addCart(res.data)
-})
-
-
+// axios.get('http://localhost:3000/shopCart').then((res)=>{
+//   console.log(res.data);
+//   cartStore.addCart(res.data)
+// })
 
 //  cartStore.addCart(shop)
 
-// 删除选中商品
-
-
-
-
-const checkAll = ()=>{
-  if(isChecked.value){
+const checkAll = () => {
+  if (isChecked.value) {
     // 不选
-    cartStore.unAll()
-  }else{
+    cartStores.unAll();
+  } else {
     // 全选
-    cartStore.all()
+    cartStores.all();
   }
-}
- const text = '您确定要删除嘛？';
-  const confirm = (index) => {
-    cartStore.cartList.splice(index,1)
-    message.info('已删除');
-    
-  };
+};
+const text = "您确定要删除嘛？";
+const confirm = (index) => {
+  cartStores.shop.splice(index, 1);
+  message.info("已删除");
+};
+
+// const checkAll = ()=>{
+//   if(isChecked.value){
+//     // 不选
+//     cartStore.unAll()
+//   }else{
+//     // 全选
+//     cartStore.all()
+//   }
+// }
+//  const text = '您确定要删除嘛？';
+//   const confirm = (index) => {
+//     cartStore.cartList.splice(index,1)
+//     message.info('已删除');
+
+//   };
 // 删除购物车数据
-const del = (id,index)=>{
+const del = (id, index) => {
   // axios.delete('http://localhost:3000/shopCart',id).then((res)=>{
   //   console.log(res);
   // })
-}
-
+};
 
 // import { useRoute } from "vue-router";
-
-
 
 // 全选
 // const state = reactive({
@@ -157,14 +189,19 @@ const del = (id,index)=>{
 // };
 
 // // 清空购物车
+// const clear = (index) => {
+//   // shop.splice(index);
+//   // localStorage.setItem("carts", JSON.stringify(shop));
+//   // location.reload();
+//   cartStore.cartList.splice(index)
+// };
+
 const clear = (index) => {
   // shop.splice(index);
   // localStorage.setItem("carts", JSON.stringify(shop));
   // location.reload();
-  cartStore.cartList.splice(index)
+  cartStores.shop.splice(index);
 };
-
-
 
 // route 接收路由传过来的参数
 // const route = useRoute()

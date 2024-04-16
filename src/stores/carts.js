@@ -1,17 +1,19 @@
 import { defineStore } from "pinia";
 
-export const userCartStore = defineStore({
-  id: "cart",
+export const userCartsStore = defineStore({
+  id: "carts",
+  
   state: () => {
     return {
       shop:[],
-      cartList: [], //购物车数据
+    //   cartList: [], //购物车数据
       select: [], //商品选中的id
     };
   },
+  persist: true,
   getters: {
     isChecked() {
-      return this.select.length === this.cartList.length;
+      return this.select.length === this.shop.length;
     },
     // 总价
     total() {
@@ -20,7 +22,7 @@ export const userCartStore = defineStore({
         number: 0,
       };
 
-      this.cartList.forEach((v) => {
+      this.shop.forEach((v) => {
         if (this.select.indexOf(v.id) != -1) {
           total.price += v.num * v.price;
           total.number += Number(this.select.length && v.num);
@@ -44,21 +46,21 @@ export const userCartStore = defineStore({
     addCart(list) {
       this.select = [];
       list.forEach((v) => {
-        v["check"] = true;
+        v["check"] = false;
         this.select.push(v.id);
       });
-      this.cartList = list;
+      this.shop = list;
     },
     // 全选
     all() {
-      this.select = this.cartList.map((v) => {
+      this.select = this.shop.map((v) => {
         v["check"] = true;
         return v.id;
       });
     },
     // 全不选
     unAll() {
-      this.cartList.forEach((v) => {
+      this.shop.forEach((v) => {
         v["check"] = false;
         this.select = [];
       });
@@ -66,17 +68,17 @@ export const userCartStore = defineStore({
     // 单选
     itemChecked(index) {
       // 获取点击商品的id
-      let id = this.cartList[index].id;
+      let id = this.shop[index].id;
       // 下标查询该id是否被选中
       let idx = this.select.indexOf(id);
 
       if (idx > -1) {
         //有
-        this.cartList[index].check = false;
+        this.shop[index].check = false;
         this.select.splice(idx, 1);
       } else {
         // 没有
-        this.cartList[index].check = true;
+        this.shop[index].check = true;
         this.select.push(id);
       }
     },

@@ -22,16 +22,16 @@
       <div>
         <!-- <img src="https://img30.360buyimg.com/jdcms/s460x460_jfs/t1/162433/11/38114/159740/64a69427F33674f32/cf5fdb3c22954604.jpg.avif" > -->
 
-        <img :src="shops.picUrl" alt="" />
+        <img :src="shops1.shops.picUrl" alt="" />
       </div>
       <!-- you -->
       <div>
         <!-- <p>TAIC太可钛度钛杯纯钛保温杯 钛水杯男女情侣双层真空 商务高档礼品杯 瀚海蓝 420ml升级款（带滤网）</p> -->
-        <p>{{ shops.title }}</p>
+        <p>{{ shops1.shops.title }}</p>
         <div>
           <div>
             <p>
-              京东价 ￥<span>{{ shops.price.toFixed(2) }}</span>
+              京东价 ￥<span>{{ shops1.shops.price.toFixed(2) }}</span>
             </p>
             <span>累计评价: 999</span>
           </div>
@@ -44,9 +44,14 @@
         <p>选择规格: 550ml</p>
         <div style="display: flex">
           <!-- <button onclick="value--">-</button><input type="text" value="1" style="width: 40px;text-align: center;"><button onclick="value--">+</button> -->
-          <button @click="shops.num--">-</button>
-          {{ shops.num }}
-          <button @click="shops.num++">+</button>
+          <button @click="shops1.shops.num--" :disabled="shops1.shops.num === 1">-</button>
+          <input
+            type="text"
+            v-model="shops1.shops.num"
+            style="width: 30px; text-align: center"
+          />
+
+          <button @click="shops1.shops.num++">+</button>
           <button
             style="margin-left: 5px; background-color: red"
             @click="addCard(shops)"
@@ -60,10 +65,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+// import { ref } from "vue";
 // const value = ref<number>(1);
-import { userCartStore } from "@/stores/cart";
-const cartStore = userCartStore()
+import { userCartsStore } from "@/stores/carts";
+import { reactive } from "vue";
+const cartStores = userCartsStore();
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
@@ -73,6 +79,10 @@ let shop = route.query.shop;
 // 字符串转对象
 let shops = JSON.parse(shop);
 
+let shops1 = reactive({
+  shops
+})
+
 console.log("111", shops);
 const router = useRouter();
 
@@ -80,33 +90,38 @@ const router = useRouter();
 
 // let preserveArr = JSON.parse(localStorage.getItem("carts"));
 
-// 添加到购物车商品
-const addCard = (shops:Object) => {
+// 通过pinia添加到购物车商品
+const addCard = (shops: Object) => {
+  if (cartStores.shop.includes(shops)) {
+    cartStores.addItemToArray(shops);
+  } else {
+    cartStores.addShop(shops);
+  }
 
-//   localStorage.setItem("carts", JSON.stringify([shops])); // []
-//   if (preserveArr) {
-//     let currentInfo = preserveArr.find((el) => {
-//       return el.id === shops.id;
-//     });
-//     if (currentInfo) {
-//       currentInfo.num = currentInfo.num + 1;
-//       localStorage.setItem("carts", JSON.stringify(preserveArr));
-//     } else {
-//       shops.num = 1;
-//       localStorage.setItem("carts", JSON.stringify([shops, ...preserveArr]));
-//     }
+  console.log("11111", cartStores.shop);
 
-// }
+  //   localStorage.setItem("carts", JSON.stringify([shops])); // []
+  //   if (preserveArr) {
+  //     let currentInfo = preserveArr.find((el) => {
+  //       return el.id === shops.id;
+  //     });
+  //     if (currentInfo) {
+  //       currentInfo.num = currentInfo.num + 1;
+  //       localStorage.setItem("carts", JSON.stringify(preserveArr));
+  //     } else {
+  //       shops.num = 1;
+  //       localStorage.setItem("carts", JSON.stringify([shops, ...preserveArr]));
+  //     }
 
+  // }
 
-    router.push({
+  router.push({
     path: "/shopCart",
     // query:{
     //   shop:JSON.stringify(shops)
     // }
   });
-
-}
+};
 // 接收的商品
 
 // 渲染传递过来的图片

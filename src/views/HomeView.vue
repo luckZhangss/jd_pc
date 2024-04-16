@@ -45,7 +45,7 @@
         "
       >
       
-        <a-badge :count="cartStore.cartList.length" show-zero >
+        <a-badge :count="cartStores.shop.length" show-zero >
           <a-avatar shape="square" size="small" ><ShoppingCartOutlined /></a-avatar>
         </a-badge>
         <a style="text-decoration: none;color: black;" @click="goCart">我的购物车</a>
@@ -435,7 +435,9 @@
 </template>
 
 <script lang="ts" setup>
-import {userCartStore} from '../stores/cart'
+// import {userCartStore} from '../stores/cart'
+
+import { userCartsStore } from "@/stores/carts";
 import {
   LeftCircleOutlined,
   RightCircleOutlined,
@@ -470,7 +472,8 @@ const goCart = ()=>{
 
 
 const router = useRouter()
-const cartStore = userCartStore()
+// const cartStore = userCartStore()
+const cartStores  = userCartsStore()
 const goDetails =(item)=>{
     router.push({
       path:'/detailsPage',
@@ -511,9 +514,9 @@ const goTop = ()=>{
 
 
 // 获取购物车数据
-axios.get('http://localhost:3000/shopCart').then((res)=>{
-  cartStore.addCart(res.data)
-})
+// axios.get('http://localhost:3000/shopCart').then((res)=>{
+//   cartStore.addCart(res.data)
+// })
 
 const value = ref<string>("");
 
