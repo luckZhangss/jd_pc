@@ -143,7 +143,7 @@ const handleFinishFailed = (errors) => {
 // 去登陆
 const resetForm = () => {
   // formRef.value.resetFields();
-  router.push("/login");
+  router.push("/");
 };
 const handleValidate = (...args) => {
   console.log(args);

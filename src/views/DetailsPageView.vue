@@ -40,10 +40,25 @@
         <!-- 增值业务 -->
         <p>增值业务: 无</p>
         <p>配送至 贵阳</p>
-        <p>选择颜色： 红色</p>
-        <p>选择规格: 550ml</p>
+        <div style="display: flex;margin-bottom: 10px;">
+          <div class="colorLef">选择颜色：</div>
+          <div class="colorRig" v-for="item in shops1.shops.color">
+            <span >{{ item.color }}</span>
+          </div>
+        </div>
+      
+        <div style="display: flex;margin-bottom: 10px;">
+          <div class="specLef">选择规格:</div>
+          <div class="specRig" v-for="item in shops1.shops.spec" :class="{noneActive:!item.checked,Active:item.checked}">
+            <span @click="selectSpec(item.spec)">{{ item.spec }}</span>
+           
+          </div>
+        </div>
+       
+
+
         <div style="display: flex">
-          <!-- <button onclick="value--">-</button><input type="text" value="1" style="width: 40px;text-align: center;"><button onclick="value--">+</button> -->
+          
           <button @click="shops1.shops.num--" :disabled="shops1.shops.num === 1">-</button>
           <input
             type="text"
@@ -54,7 +69,7 @@
           <button @click="shops1.shops.num++">+</button>
           <button
             style="margin-left: 5px; background-color: red"
-            @click="addCard(shops)"
+            @click="addCart(shops)"
           >
             加入购物车
           </button>
@@ -93,28 +108,34 @@ const router = useRouter();
 
 // let preserveArr = JSON.parse(localStorage.getItem("carts"));
 
+const selectSpec = (item)=>{
+  console.log(item + '被选中了');
+}
 
 
-// const cart = ref([])
 // 通过pinia添加到购物车商品
-const addCard = (shops: Object) => {
+const addCart = (shops) => {
   
   if (cartStores.shop.includes(shops)) {
     cartStores.addItemToArray(shops);
   } else {
         const index = cartStores.shop.findIndex((item) => item.id === shops.id)
-        if (index !== -1) {
-            // 购物车中已有该商品，只增加数量
-           cartStores.shop[index].num++;
+        if (index !== -1 ) {
+            // 购物车中已有该商品，只增加数量     这里有bug
+            // 如果添加的数量是1
+            if(shops.num ==1){
+              cartStores.shop[index].num++;
+            }else{
+              cartStores.shop[index].num += shops.num++
+            } 
           } else {
             // 购物车中没有该商品，添加到购物车
-            cartStores.shop.push({ ...shops, num: 1 });
+            // cartStores.shop.push({ ...shops});
+            cartStores.addShop(shops);
           }
-    // cartStores.addShop(shops);
+   
   }
-
   console.log("11111", cartStores.shop);
-
   //   localStorage.setItem("carts", JSON.stringify([shops])); // []
   //   if (preserveArr) {
   //     let currentInfo = preserveArr.find((el) => {
@@ -127,7 +148,6 @@ const addCard = (shops: Object) => {
   //       shops.num = 1;
   //       localStorage.setItem("carts", JSON.stringify([shops, ...preserveArr]));
   //     }
-
   // }
 
   router.push({
@@ -171,5 +191,51 @@ const addCard = (shops: Object) => {
 }
 .head > :nth-child(2) > span {
   margin-left: 20px;
+}
+
+/* .color>div{
+  border: solid 1px;
+  padding: 8px;
+  margin-right: 10px;
+  cursor: pointer;
+} */
+.noneActive{
+  background-color:#ccc;
+}
+.Active{
+  background-color: red;
+}
+.specLef{
+  height: 20px;
+}
+
+.colorLef{
+  height: 20px;
+}
+.specRig{
+  /* margin-left: 5px; */
+  height: 30px;
+  line-height: 30px;
+ 
+}
+.colorRig{
+  height: 30px;
+  line-height:20px;
+}
+.colorRig>span{
+  display: block;
+  margin-left: 8px;
+  border: 1px solid;
+  text-align: center;
+  padding:5px 10px;
+  cursor: pointer;
+}
+.specRig>span{
+  display: block;
+  margin-left: 8px;
+  border: 1px solid;
+  text-align: center;
+  padding:0 8px;
+  cursor: pointer;
 }
 </style>

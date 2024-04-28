@@ -5,7 +5,7 @@ export const userCartsStore = defineStore({
   
   state: () => {
     return {
-      shop:[],
+      shop:[],//存放商品的数据
     //   cartList: [], //购物车数据
       select: [], //商品选中的id
     };
@@ -33,7 +33,8 @@ export const userCartsStore = defineStore({
   },
   actions: {
     addShop(shops){
-  
+      console.log('444',this.shop);
+
       this.shop.push(shops)
     },
 
@@ -45,6 +46,7 @@ export const userCartsStore = defineStore({
 
 
     addCart(list) {
+
       this.select = [];
       list.forEach((v) => {
         v["check"] = false;

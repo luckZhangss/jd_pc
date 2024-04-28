@@ -1,20 +1,24 @@
 <template>
-  
   <div class="box">
-     <div class="user"><h3>欢迎你 <span style="color: red;">【{{ user.username }}】</span> 登录!!!</h3>
-      <div style="font-size: 14px;margin-left: 20px;cursor: pointer;color: blue;"  >
-      <a-popconfirm
-    title="您确定要注销嘛?"
-    ok-text="确认"
-    cancel-text="取消"
-    @confirm="confirm"
-    @cancel="cancel"
-    style="cursor: pointer;"
-  >
-    退出登录
-  </a-popconfirm>
+    <div class="user">
+      <h3>
+        欢迎你 <span style="color: red">【{{ user.username }}】</span> 登录!!!
+      </h3>
+      <div
+        style="font-size: 14px; margin-left: 20px; cursor: pointer; color: blue"
+      >
+        <a-popconfirm
+          title="您确定要注销嘛?"
+          ok-text="确认"
+          cancel-text="取消"
+          @confirm="confirm"
+          @cancel="cancel"
+          style="cursor: pointer"
+        >
+          退出登录
+        </a-popconfirm>
       </div>
-    </div> 
+    </div>
     <!-- 上 -->
     <div class="top">
       <!-- logo -->
@@ -44,11 +48,14 @@
           cursor: pointer;
         "
       >
-      
-        <a-badge :count="cartStores.shop.length" show-zero >
-          <a-avatar shape="square" size="small" ><ShoppingCartOutlined /></a-avatar>
+        <a-badge :count="cartStores.shop.length" show-zero>
+          <a-avatar shape="square" size="small"
+            ><ShoppingCartOutlined
+          /></a-avatar>
         </a-badge>
-        <a style="text-decoration: none;color: black;" @click="goCart">我的购物车</a>
+        <a style="text-decoration: none; color: black" @click="goCart"
+          >我的购物车</a
+        >
       </div>
     </div>
     <!-- 中 -->
@@ -77,7 +84,11 @@
               <right-circle-outlined />
             </div>
           </template>
-          <div class="swip_img" v-for="(item, index) in data.middSwip" :key="index">
+          <div
+            class="swip_img"
+            v-for="(item, index) in data.middSwip"
+            :key="index"
+          >
             <img :src="item.picUrl" />
           </div>
         </a-carousel>
@@ -87,26 +98,10 @@
         <!-- 第一层 -->
 
         <div class="midd_tim_one">
-          <div>
-            <img
-              src="https://img14.360buyimg.com/imagetools/jfs/t1/66037/3/24346/9414/64b11b21F51d90361/8f015973cbb7de8d.png"
-              alt=""
-            />
-            <p><a href="/">登录 注册</a></p>
-          </div>
-          <div>
-            <img
-              src="https://img14.360buyimg.com/imagetools/jfs/t1/66037/3/24346/9414/64b11b21F51d90361/8f015973cbb7de8d.png"
-              alt=""
-            />
-            <p>登录 注册</p>
-          </div>
-          <div>
-            <img
-              src="https://img14.360buyimg.com/imagetools/jfs/t1/66037/3/24346/9414/64b11b21F51d90361/8f015973cbb7de8d.png"
-              alt=""
-            />
-            <p>登录 注册</p>
+          <div v-for="item in 3" :key="item">
+            <p>PLUS会员</p>
+            <p>专享立减</p>
+            <p>立即开通></p>
           </div>
         </div>
 
@@ -131,8 +126,8 @@
           </div>
           <!-- 右 -->
           <div class="right">
-            <a-carousel arrows >
-              <template #prevArrow >
+            <a-carousel arrows>
+              <template #prevArrow>
                 <div class="custom-slick-arrow" style="left: 10px; z-index: 1">
                   <left-circle-outlined />
                 </div>
@@ -143,7 +138,7 @@
                 </div>
               </template>
               <!-- 第一页 -->
-              <div>
+              <div v-for="item in 3" :key="item">
                 <div
                   style="
                     display: flex;
@@ -151,105 +146,17 @@
                     flex-direction: row;
                   "
                 >
-                  <div>
+                  <div
+                    v-for="item in data.smallSwiper"
+                    :key="item.id"
+                    style="margin-top: -10px; margin-left: -10px"
+                  >
                     <img
-                      style="width: 40px; height: 40px"
-                      src="https://img10.360buyimg.com/seckillcms/s280x280_jfs/t1/135839/17/30155/28012/633e7f90E07895bc9/48a298ac513ab3fd.jpg.avif"
+                      style="width: 60px; height: 60px"
+                      :src="item.picUrl"
                       alt=""
                     />
-                    <p>19</p>
-                  </div>
-
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img12.360buyimg.com/seckillcms/s280x280_jfs/t1/178006/24/43021/97592/65ee9ae4F2677705b/123d2fb20bc0da36.jpg.avif"
-                      alt=""
-                    />
-                    <p>19</p>
-                  </div>
-
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img12.360buyimg.com/seckillcms/s280x280_jfs/t20270324/242214/11/6337/12383/66003e2fFdc857e49/06b9a02d3c88438e.png.avif"
-                      alt=""
-                    />
-                    <p>19</p>
-                  </div>
-                </div>
-              </div>
-              <!-- 第二页 -->
-              <div>
-                <div
-                  style="
-                    display: flex;
-                    justify-content: space-around;
-                    flex-direction: row;
-                  "
-                >
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/157758/29/44673/108448/6608c238F44d693c9/2916c45e7aa37c00.jpg.avif"
-                      alt=""
-                    />
-                    <p>19</p>
-                  </div>
-
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/157758/29/44673/108448/6608c238F44d693c9/2916c45e7aa37c00.jpg.avif"
-                      alt=""
-                    />
-                    <p>19</p>
-                  </div>
-
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/157758/29/44673/108448/6608c238F44d693c9/2916c45e7aa37c00.jpg.avif"
-                      alt=""
-                    />
-                    <p>19</p>
-                  </div>
-                </div>
-              </div>
-              <!-- 第三页 -->
-              <div>
-                <div
-                  style="
-                    display: flex;
-                    justify-content: space-around;
-                    flex-direction: row;
-                  "
-                >
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/157758/29/44673/108448/6608c238F44d693c9/2916c45e7aa37c00.jpg.avif"
-                      alt=""
-                    />
-                    <p>19</p>
-                  </div>
-
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/157758/29/44673/108448/6608c238F44d693c9/2916c45e7aa37c00.jpg.avif"
-                      alt=""
-                    />
-                    <p>19</p>
-                  </div>
-
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/157758/29/44673/108448/6608c238F44d693c9/2916c45e7aa37c00.jpg.avif"
-                      alt=""
-                    />
-                    <p>19</p>
+                    <p style="color: red;font-weight: 600;">￥{{ item.price }}</p>
                   </div>
                 </div>
               </div>
@@ -279,7 +186,7 @@
                 </div>
               </template>
               <!-- 第一页 -->
-              <div>
+              <div v-for="item in 3" :key="item">
                 <div
                   style="
                     display: flex;
@@ -287,105 +194,17 @@
                     flex-direction: row;
                   "
                 >
-                  <div>
+                  <div
+                    v-for="item in data.smallSwiper"
+                    :key="item.id"
+                    style="margin-top: -10px; margin-left: -10px"
+                  >
                     <img
-                      style="width: 40px; height: 40px"
-                      src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/157758/29/44673/108448/6608c238F44d693c9/2916c45e7aa37c00.jpg.avif"
+                      style="width: 60px; height: 60px"
+                      :src="item.picUrl"
                       alt=""
                     />
-                    <p>18</p>
-                  </div>
-
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/157758/29/44673/108448/6608c238F44d693c9/2916c45e7aa37c00.jpg.avif"
-                      alt=""
-                    />
-                    <p>18</p>
-                  </div>
-
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/157758/29/44673/108448/6608c238F44d693c9/2916c45e7aa37c00.jpg.avif"
-                      alt=""
-                    />
-                    <p>18</p>
-                  </div>
-                </div>
-              </div>
-              <!-- 第二页 -->
-              <div>
-                <div
-                  style="
-                    display: flex;
-                    justify-content: space-around;
-                    flex-direction: row;
-                  "
-                >
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/157758/29/44673/108448/6608c238F44d693c9/2916c45e7aa37c00.jpg.avif"
-                      alt=""
-                    />
-                    <p>19</p>
-                  </div>
-
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/157758/29/44673/108448/6608c238F44d693c9/2916c45e7aa37c00.jpg.avif"
-                      alt=""
-                    />
-                    <p>19</p>
-                  </div>
-
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/157758/29/44673/108448/6608c238F44d693c9/2916c45e7aa37c00.jpg.avif"
-                      alt=""
-                    />
-                    <p>19</p>
-                  </div>
-                </div>
-              </div>
-              <!-- 第三页 -->
-              <div>
-                <div
-                  style="
-                    display: flex;
-                    justify-content: space-around;
-                    flex-direction: row;
-                  "
-                >
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/157758/29/44673/108448/6608c238F44d693c9/2916c45e7aa37c00.jpg.avif"
-                      alt=""
-                    />
-                    <p>19</p>
-                  </div>
-
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/157758/29/44673/108448/6608c238F44d693c9/2916c45e7aa37c00.jpg.avif"
-                      alt=""
-                    />
-                    <p>19</p>
-                  </div>
-
-                  <div>
-                    <img
-                      style="width: 40px; height: 40px"
-                      src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/157758/29/44673/108448/6608c238F44d693c9/2916c45e7aa37c00.jpg.avif"
-                      alt=""
-                    />
-                    <p>19</p>
+                    <p style="color: red;font-weight: 600;">￥{{ item.price }}</p>
                   </div>
                 </div>
               </div>
@@ -395,7 +214,7 @@
         <!-- 四层 -->
         <div class="midd_tim_four">
           <div>
-            <div v-for="item in data.Otherfunction" :key="item">
+            <div v-for="item in data.Otherfunction" :key="item" @click="otherFunction(item)">
               <img :src="item.picUrl" alt="" />
               <p>{{ item.name }}</p>
             </div>
@@ -419,11 +238,16 @@
     </div>
     <!-- 商品 -->
     <div class="shop">
-      <div v-for="item in data.shopping" :key="item.id"  @click="goDetails(item)">
+      <div
+        v-for="item in data.shopping"
+        :key="item.id"
+        @click="goDetails(item)"
+      >
         <img :src="item.picUrl" />
-        <p>{{item.title }}</p>
-        <p>￥<span>{{item.price.toFixed(2)}}</span>
-          </p>
+        <p>{{ item.title }}</p>
+        <p>
+          ￥<span>{{ item.price.toFixed(2) }}</span>
+        </p>
       </div>
     </div>
 
@@ -446,63 +270,66 @@ import {
 import { reactive, ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
-import { message } from 'ant-design-vue';
+import { message } from "ant-design-vue";
 // // 退出登录
 const confirm = (e: MouseEvent) => {
   console.log(e);
-  localStorage.removeItem('token')
-  localStorage.removeItem('userInfo')
-  router.push('/')
-  message.success('已注销');
+  localStorage.removeItem("token");
+  localStorage.removeItem("userInfo");
+  router.push("/");
+  message.success("已注销");
 };
-// 
+//
 const cancel = (e: MouseEvent) => {
   console.log(e);
-  message.error('已取消');
+  message.error("已取消");
 };
 
+const otherFunction = (e)=>{
+  message.info(e.name + '功能正在开发中')
+}
+
 // 去购物车
-const goCart = ()=>{
-  if(localStorage.getItem('token')&& localStorage.getItem('userInfo')){
-    router.push('/shopCart')
-  }else{
-      router.push('/')
+const goCart = () => {
+  if (localStorage.getItem("token") && localStorage.getItem("userInfo")) {
+    router.push("/shopCart");
+  } else {
+    router.push("/");
   }
-}
+};
 
-
-const router = useRouter()
+const router = useRouter();
 // const cartStore = userCartStore()
-const cartStores  = userCartsStore()
-const goDetails =(item)=>{
-    router.push({
-      path:'/detailsPage',
-      query:{
-        shop:JSON.stringify(item)
-      }
-    })
-}
+const cartStores = userCartsStore();
+const goDetails = (item) => {
+  router.push({
+    path: "/detailsPage",
+    query: {
+      shop: JSON.stringify(item),
+    },
+  });
+};
 
 // 本地获取存储的用户信息
-let userInfo = localStorage.getItem('userInfo')
-let user = JSON.parse(userInfo)
-console.log('1111',user);
+let userInfo = localStorage.getItem("userInfo");
+let user = JSON.parse(userInfo);
+console.log("1111", user);
 
 // 回到顶部
-let btn = document.querySelector('#btn')
+let btn = document.querySelector("#btn");
 // 监听页面滚动
-window.onscroll = ()=>{
-  let currHeight = document.documentElement.scrollTop
-  if(currHeight >300){
+window.onscroll = () => {
+  let currHeight = document.documentElement.scrollTop;
+  if (currHeight > 300) {
     document.querySelector("#btn").style.display = "block";
-  }else{
+  } else {
     document.querySelector("#btn").style.display = "none";
   }
-}
+};
 // 回顶部
-const goTop = ()=>{
-  document.body.scrollTop =document.documentElement.scrollTop = 0
-}
+const goTop = () => {
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
+};
 
 // 退出登录
 // const goOut = ()=>{
@@ -510,8 +337,6 @@ const goTop = ()=>{
 //   localStorage.removeItem('userInfo')
 //   router.push('/')
 // }
-
-
 
 // 获取购物车数据
 // axios.get('http://localhost:3000/shopCart').then((res)=>{
@@ -522,46 +347,51 @@ const value = ref<string>("");
 
 // 商品
 const data = reactive({
-  shopping:[],
-  guessLike:[],
-  middSwip:[],
-  Otherfunction:[],
-  nav:[],
-  tabList:[]
+  shopping: [],
+  guessLike: [],
+  middSwip: [],
+  Otherfunction: [],
+  nav: [],
+  tabList: [],
+  smallSwiper: [],
 });
 
 // tab
-axios.get('http://localhost:3000/tabList').then((res)=>{
+axios.get("http://localhost:3000/tabList").then((res) => {
   console.log(res);
-  data.tabList = res.data
-})
+  data.tabList = res.data;
+});
 // nav
-axios.get('http://localhost:3000/nav').then((res)=>{
+axios.get("http://localhost:3000/nav").then((res) => {
   console.log(res);
-  data.nav = res.data
-})
+  data.nav = res.data;
+});
 
 // 请求获取商品详情
-axios.get('http://localhost:3000/shopping').then((res)=>{
+axios.get("http://localhost:3000/shopping").then((res) => {
   console.log(res);
-  data.shopping = res.data
-})
+  data.shopping = res.data;
+});
 // Otherfunction
-axios.get('http://localhost:3000/Otherfunction').then((res)=>{
+axios.get("http://localhost:3000/Otherfunction").then((res) => {
   console.log(res);
-  data.Otherfunction = res.data
-  
-})
+  data.Otherfunction = res.data;
+});
 // 猜你喜欢
-axios.get('http://localhost:3000/guessLike').then((res)=>{
+axios.get("http://localhost:3000/guessLike").then((res) => {
   console.log(res);
-  data.guessLike = res.data
-})
+  data.guessLike = res.data;
+});
 // 轮播图
-axios.get('http://localhost:3000/swiper').then((res)=>{
+axios.get("http://localhost:3000/swiper").then((res) => {
   console.log(res);
-  data.middSwip = res.data
-})
+  data.middSwip = res.data;
+});
+// 小轮播
+axios.get("http://localhost:3000/smallSwiper").then((res) => {
+  console.log(res);
+  data.smallSwiper = res.data;
+});
 
 const onSearch = (searchValue: string) => {
   console.log("use value", searchValue);
@@ -573,9 +403,6 @@ const onFinish = () => {
   console.log("finished!");
 };
 const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30;
-
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -584,7 +411,7 @@ html,
 body {
   width: 100%;
 }
-a{
+a {
   text-decoration: none;
   color: black;
 }
@@ -654,6 +481,7 @@ a{
   width: 31vh;
   height: 46.5vh;
   margin: 5px 6px;
+  cursor: pointer;
 }
 .shop > div > img {
   width: 220px;
@@ -672,10 +500,10 @@ a{
   margin-left: 10px;
   margin-right: 10px;
 }
-.shop > div >:nth-child(3){
-  color:red;
+.shop > div > :nth-child(3) {
+  color: red;
 }
-.shop > div >:nth-child(3)>span{
+.shop > div > :nth-child(3) > span {
   font-size: 18px;
   font-weight: 600;
   color: #e1251b;
@@ -744,11 +572,11 @@ a{
 }
 .midd_tim_one {
   display: flex;
-  justify-content: space-around;
+  // justify-content: space-around;
   background-color: #fff;
   height: 14vh;
-  text-align: center;
-  align-items: center;
+  // text-align: center;
+  // align-items: center;
 }
 .midd_tim_two {
   display: flex;
@@ -803,7 +631,7 @@ a{
 .midd_tim_three > .left {
   //  background-color: #e1251b;
   text-align: center;
-  margin: 6px;
+  margin: 9px;
 }
 
 .midd_tim_three > .right {
@@ -834,6 +662,8 @@ a{
   background-size: cover;
   // width: 140px;
   margin: 9px;
+  width: 70px;
+  height: 85px;
 }
 .midd_tim_two > .left > span {
   display: block;
@@ -884,14 +714,29 @@ a{
   height: 40px;
 }
 
-.midd_time > .midd_tim_one > div > img {
-  width: 28px;
-  height: 28px;
+.midd_time > .midd_tim_one > div {
+  width: 115px;
+  height: 80px;
+  background-color: powderblue;
+  margin: 7px;
+  border-radius: 10px;
+  cursor: pointer;
 }
+
 .midd_time > .midd_tim_one > div > p {
-  font-size: 0.6rem;
-  // text-align: center;
+  font-size: 0.8rem;
   margin-top: 0.4rem;
+  margin-left: 5px;
+}
+.midd_time > .midd_tim_one > div > :nth-child(1) {
+  font-weight: 600;
+}
+.midd_time > .midd_tim_one > div > :nth-child(2) {
+  font-size: 0.65rem;
+  // color: #f5f5f5;
+}
+.midd_time > .midd_tim_one > div > :nth-child(3) {
+  font-size: 0.7rem;
 }
 .midd_swip > .swip_img > img {
   width: 100%;
@@ -922,7 +767,6 @@ a{
   top: 172px;
   display: none;
 }
-
 
 .midd_tab > ul > li:hover > div {
   display: block;
@@ -1049,25 +893,23 @@ a{
   color: #fff;
 }
 // 回到顶部
-.goTop{
+.goTop {
   position: fixed;
   display: none;
   width: 50px;
-  padding:5px;
- background-color: #e1251b;
+  padding: 5px;
+  background-color: #e1251b;
   cursor: pointer;
   top: 500px;
   left: 1400px;
 }
-.user{
+.user {
   text-align: center;
   display: flex;
   justify-content: end;
   margin-right: 50px;
-  height:40px;
+  height: 40px;
   line-height: 40px;
   font-size: 20px;
-
-
 }
 </style>

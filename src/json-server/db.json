@@ -42,7 +42,35 @@
         "title": "尚明钛焖茶杯闷杯泡茶杯家用办公保温杯大容量陶瓷涂层内胆车载杯 橙色 400ml",
         "picUrl": "https://img30.360buyimg.com/jdcms/s460x460_jfs/t1/162433/11/38114/159740/64a69427F33674f32/cf5fdb3c22954604.jpg.avif",
         "price": 4300,
-        "num":1
+        "num":1,
+        "color":[
+            {
+                "id":1,
+                "color":"红色"
+            },
+            {
+                "id":2,
+                "color":"绿色"
+            },
+            {
+                "id":3,
+                "color":"蓝色"
+            }
+        ],
+        "spec":[
+            {
+                "id":1,
+                "spec":"550ml"
+            },
+            {
+                "id":2,
+                "spec":"750ml"
+            },
+            {
+                "id":3,
+                "spec":"850ml"
+            }
+        ]
     },
     {
         "id": 2,
@@ -374,6 +402,24 @@
         "id":12,
         "tabName":"手机/运营商/电脑",
         "tabContent":"q11100111111"
+    }
+  ],
+  "smallSwiper":
+  [
+    {
+        "id":1,
+        "picUrl":"https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/234278/14/15095/31260/65efbe2dF5b86e86d/3367396830b6fe90.jpg.avif",
+        "price":20
+    },
+    {
+        "id":2,
+        "picUrl":"https://img12.360buyimg.com/seckillcms/s280x280_jfs/t1/231419/27/16854/62474/66270734Fb2721862/161737e8f175adbc.jpg.avif",
+        "price":42
+    },
+    {
+        "id":3,
+        "picUrl":"https://img13.360buyimg.com/seckillcms/s280x280_jfs/t20270425/89794/26/40189/114708/6629ad24F683a78c6/3ff8fbe14615d2d5.jpg.avif",
+        "price":66
     }
   ]
 }
