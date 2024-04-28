@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-
+import { computed } from "vue";
 export const userCartsStore = defineStore({
   id: "carts",
   
@@ -33,7 +33,7 @@ export const userCartsStore = defineStore({
   },
   actions: {
     addShop(shops){
-      console.log('444',this.shop);
+      // console.log('444',this.shop);
 
       this.shop.push(shops)
     },
@@ -85,7 +85,12 @@ export const userCartsStore = defineStore({
         this.select.push(id);
       }
     },
+
+    
     // 删除选中商品
-   
+    // selectDel(){
+    //   const uncheckedItems = computed(() =>this.shop.filter(item => !item.checked));
+    //   this.shop = uncheckedItems.value
+    // }
   },
 });

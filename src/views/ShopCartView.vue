@@ -74,7 +74,7 @@
       </a-popconfirm>
     </div>
     <div class="balance" v-if="shop.length > 0">
-      <p style="cursor: pointer">删除选中商品</p>
+      <p style="cursor: pointer" @click="selectDel()">删除选中商品</p>
       <p style="cursor: pointer" @click="clear(index)">清除购物车</p>
       <p>
         总计:￥<span>{{ total.price.toFixed(2) }}</span>
@@ -101,7 +101,7 @@ import { storeToRefs } from "pinia";
 const cartStores = userCartsStore();
 
 // import axios from "axios";
-import { reactive, ref, watch } from "vue";
+import { reactive, ref, watch,computed } from "vue";
 
 // import {useRoute} from 'vue-router'
 // const route = useRoute()
@@ -202,6 +202,18 @@ const clear = (index) => {
   // location.reload();
   cartStores.shop.splice(index);
 };
+
+  
+
+
+// 删除选中的商品
+const selectDel = ()=>{
+const uncheckedItems = computed(() =>cartStores.shop.filter(item => !item.check));    
+cartStores.shop = uncheckedItems.value
+}
+
+
+
 
 // route 接收路由传过来的参数
 // const route = useRoute()

@@ -120,7 +120,8 @@ const addCart = (shops) => {
     cartStores.addItemToArray(shops);
   } else {
         const index = cartStores.shop.findIndex((item) => item.id === shops.id)
-        if (index !== -1 ) {
+        if (index !== -1) {
+        
             // 购物车中已有该商品，只增加数量     这里有bug
             // 如果添加的数量是1
             if(shops.num ==1){
