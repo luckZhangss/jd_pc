@@ -40,26 +40,38 @@
         <!-- 增值业务 -->
         <p>增值业务: 无</p>
         <p>配送至 贵阳</p>
-        <div style="display: flex;margin-bottom: 10px;">
+        <!-- <div style="display: flex; margin-bottom: 10px">
           <div class="colorLef">选择颜色：</div>
           <div class="colorRig" v-for="item in shops1.shops.color">
-            <span >{{ item.color }}</span>
+            <span>{{ item.color }}</span>
           </div>
-        </div>
-      
-        <div style="display: flex;margin-bottom: 10px;">
-          <div class="specLef">选择规格:</div>
-          <div class="specRig" v-for="item in shops1.shops.spec" :class="{noneActive:!item.checked,Active:item.checked}">
-            <span @click="selectSpec(item.spec)">{{ item.spec }}</span>
-           
-          </div>
-        </div>
-       
+        </div> -->
 
+        <div
+          style="display: flex; margin-bottom: 10px"
+          v-for="(item, index) in shops1.shops.spec"
+        >
+          <div class="specLef">选择{{ item.name }}:</div>
+          <div class="specRig">
+            <select v-model="selectedSpecs[index]">
+              <option
+                :value="item1"
+                v-for="(item1, index) in item.options"
+                :key="index"
+              >
+                {{ item1 }}
+              </option>
+            </select>
+          </div>
+        </div>
 
         <div style="display: flex">
-          
-          <button @click="shops1.shops.num--" :disabled="shops1.shops.num === 1">-</button>
+          <button
+            @click="shops1.shops.num--"
+            :disabled="shops1.shops.num === 1"
+          >
+            -
+          </button>
           <input
             type="text"
             v-model="shops1.shops.num"
@@ -80,10 +92,9 @@
 </template>
 
 <script setup lang="ts">
-// import { ref } from "vue";
-// const value = ref<number>(1);
+
 import { userCartsStore } from "@/stores/carts";
-import { reactive,ref } from "vue";
+import { reactive, ref } from "vue";
 const cartStores = userCartsStore();
 import { useRoute, useRouter } from "vue-router";
 
@@ -98,45 +109,49 @@ let shops = JSON.parse(shop);
 
 // 当路由传参接收到参数对象后，失去响应式，可以给该对象外层套一层对象，解决失去响应问题
 let shops1 = reactive({
-  shops
-})
+  shops,
+});
 
-console.log("111", shops);
+// console.log("111", shops);
 const router = useRouter();
 
 // 2024.04/11   22:15分
 
 // let preserveArr = JSON.parse(localStorage.getItem("carts"));
 
-const selectSpec = (item)=>{
-  console.log(item + '被选中了');
-}
-
+// 用户选择的规格
+const selectedSpecs = ref(shops1.shops.spec.map((v) => v.options[0]));
 
 // 通过pinia添加到购物车商品
 const addCart = (shops) => {
-  
+  // console.log("添加规格为:", selectedSpecs.value);
+
+let shopss =  Object.assign(shops.spec,selectedSpecs.value)
+console.log('444',shopss);
+console.log('1',shops);
+
+
+
   if (cartStores.shop.includes(shops)) {
     cartStores.addItemToArray(shops);
   } else {
-        const index = cartStores.shop.findIndex((item) => item.id === shops.id)
-        if (index !== -1) {
-        
-            // 购物车中已有该商品，只增加数量     这里有bug
-            // 如果添加的数量是1
-            if(shops.num ==1){
-              cartStores.shop[index].num++;
-            }else{
-              cartStores.shop[index].num += shops.num++
-            } 
-          } else {
-            // 购物车中没有该商品，添加到购物车
-            // cartStores.shop.push({ ...shops});
-            cartStores.addShop(shops);
-          }
-   
+    const index = cartStores.shop.findIndex((item) => item.id === shops.id);
+    if (index !== -1) {
+      // 购物车中已有该商品，只增加数量     这里有bug
+      // 如果添加的数量是1
+      if (shops.num == 1) {
+        cartStores.shop[index].num++;
+      } else {
+        cartStores.shop[index].num += shops.num++;
+      }
+    } else {
+      // 购物车中没有该商品，添加到购物车
+      // cartStores.shop.push({ ...shops});
+      cartStores.addShop(shops);
+    }
   }
-  console.log("11111", cartStores.shop);
+  // console.log("11111", cartStores.shop);
+
   //   localStorage.setItem("carts", JSON.stringify([shops])); // []
   //   if (preserveArr) {
   //     let currentInfo = preserveArr.find((el) => {
@@ -200,43 +215,43 @@ const addCart = (shops) => {
   margin-right: 10px;
   cursor: pointer;
 } */
-.noneActive{
-  background-color:#ccc;
+.noneActive {
+  background-color: #ccc;
 }
-.Active{
+.Active {
   background-color: red;
 }
-.specLef{
+.specLef {
   height: 20px;
 }
 
-.colorLef{
+.colorLef {
   height: 20px;
 }
-.specRig{
+.specRig {
   /* margin-left: 5px; */
   height: 30px;
   line-height: 30px;
- 
+  margin-left: 15px;
 }
-.colorRig{
+.colorRig {
   height: 30px;
-  line-height:20px;
+  line-height: 20px;
 }
-.colorRig>span{
+.colorRig > span {
   display: block;
   margin-left: 8px;
   border: 1px solid;
   text-align: center;
-  padding:5px 10px;
+  padding: 5px 10px;
   cursor: pointer;
 }
-.specRig>span{
+/* .specRig>.a-radio-button{
   display: block;
   margin-left: 8px;
   border: 1px solid;
   text-align: center;
   padding:0 8px;
   cursor: pointer;
-}
+} */
 </style>

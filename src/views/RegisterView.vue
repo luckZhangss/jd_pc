@@ -37,7 +37,7 @@
 
         <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
           <a-button type="primary" html-type="submit">注册</a-button>
-          <a-button style="margin-left: 10px" @click="resetForm"
+          <a-button style="margin-left: 10px" @click="goLogin"
             >去登录</a-button
           >
         </a-form-item>
@@ -141,7 +141,7 @@ const handleFinishFailed = (errors) => {
   console.log(errors);
 };
 // 去登陆
-const resetForm = () => {
+const goLogin = () => {
   // formRef.value.resetFields();
   router.push("/");
 };

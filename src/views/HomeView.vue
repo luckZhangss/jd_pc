@@ -2,7 +2,7 @@
   <div class="box">
     <div class="user">
       <h3>
-        欢迎你 <span style="color: red">【{{ user.username }}】</span> 登录!!!
+        欢迎你 <span style="color: red">【{{ userInfo.username }}】</span> 登录!!!
       </h3>
       <div
         style="font-size: 14px; margin-left: 20px; cursor: pointer; color: blue"
@@ -311,9 +311,9 @@ const goDetails = (item) => {
 };
 
 // 本地获取存储的用户信息
-let userInfo = localStorage.getItem("userInfo");
-let user = JSON.parse(userInfo);
-console.log("1111", user);
+let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+// console.log('777',userInfo);
+
 
 // 回到顶部
 let btn = document.querySelector("#btn");
@@ -330,18 +330,6 @@ window.onscroll = () => {
 const goTop = () => {
   document.body.scrollTop = document.documentElement.scrollTop = 0;
 };
-
-// 退出登录
-// const goOut = ()=>{
-//   localStorage.removeItem('token')
-//   localStorage.removeItem('userInfo')
-//   router.push('/')
-// }
-
-// 获取购物车数据
-// axios.get('http://localhost:3000/shopCart').then((res)=>{
-//   cartStore.addCart(res.data)
-// })
 
 const value = ref<string>("");
 

@@ -21,6 +21,7 @@
       </a-checkbox>
       <div>商品</div>
       <div>单价</div>
+      <div>规格</div>
       <div>数量</div>
       <div>小计</div>
       <div>操作</div>
@@ -42,10 +43,11 @@
       <p>
         ￥<span> {{ item.price }}</span>
       </p>
+      <p v-for="item1 in item.spec">
+        <span> {{item1}}</span>
+      </p>
       <div>
         <button @click="item.num--" :disabled="item.num === 1">-</button>
-        <!-- {{ item.num }} -->
-
         <input
           type="text"
           v-model="item.num"
@@ -65,7 +67,7 @@
         cancel-text="No"
         @confirm="confirm"
       >
-        <a-button type="primary" danger @click="del(item.id, index)"
+        <a-button type="primary" danger 
           >删除</a-button
         >
         <template #title>
@@ -74,7 +76,7 @@
       </a-popconfirm>
     </div>
     <div class="balance" v-if="shop.length > 0">
-      <p style="cursor: pointer" @click="selectDel()">删除选中商品</p>
+      <p style="cursor: pointer" @click="selectDel">删除选中商品</p>
       <p style="cursor: pointer" @click="clear(index)">清除购物车</p>
       <p>
         总计:￥<span>{{ total.price.toFixed(2) }}</span>
@@ -156,33 +158,13 @@ const confirm = (index) => {
 //     message.info('已删除');
 
 //   };
-// 删除购物车数据
-const del = (id, index) => {
-  // axios.delete('http://localhost:3000/shopCart',id).then((res)=>{
-  //   console.log(res);
-  // })
-};
 
-// import { useRoute } from "vue-router";
-
-// 全选
-// const state = reactive({
-//   checkAll: false,
-// });
-
-// const onCheckAllChange = (e) => {
-//   console.log(e);
-// };
-
-// const data = reactive({
-//   shops:[]
-// })
 
 // 删除商品，截取数组下标
 // const del = (index: any) => {
 //   console.log("删除了");
 //   // console.log(index);
-
+// }
 //   shop.splice(index, 1);
 //   localStorage.setItem("carts", JSON.stringify(shop));
 //   location.reload();
@@ -208,8 +190,10 @@ const clear = (index) => {
 
 // 删除选中的商品
 const selectDel = ()=>{
-const uncheckedItems = computed(() =>cartStores.shop.filter(item => !item.check));    
-cartStores.shop = uncheckedItems.value
+// const uncheckedItems = computed(() =>cartStores.shop.filter(item => !item.check));    
+// cartStores.shop = uncheckedItems.value
+cartStores.selectDel
+ 
 }
 
 

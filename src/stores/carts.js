@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { computed } from "vue";
 export const userCartsStore = defineStore({
   id: "carts",
-  
+ 
   state: () => {
     return {
       shop:[],//存放商品的数据
@@ -10,7 +10,7 @@ export const userCartsStore = defineStore({
       select: [], //商品选中的id
     };
   },
-  persist: true,
+
   getters: {
     isChecked() {
       return this.select.length === this.shop.length;
@@ -30,7 +30,13 @@ export const userCartsStore = defineStore({
       });
       return total;
     },
+        // 删除选中商品
+      selectDel(){
+        const uncheckedItems = computed(() =>this.shop.filter(item => !item.check));
+         this.shop = uncheckedItems.value
+       }
   },
+  persist: true,
   actions: {
     addShop(shops){
       // console.log('444',this.shop);
@@ -87,10 +93,7 @@ export const userCartsStore = defineStore({
     },
 
     
-    // 删除选中商品
-    // selectDel(){
-    //   const uncheckedItems = computed(() =>this.shop.filter(item => !item.checked));
-    //   this.shop = uncheckedItems.value
-    // }
+
+   
   },
 });
