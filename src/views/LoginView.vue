@@ -64,9 +64,9 @@ import { reactive, ref, computed, getCurrentInstance } from "vue";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 import type { FormInstance } from "ant-design-vue";
 import router from "@/router";
+import { getlogin } from "@/config/api";
 // import axios from "axios";
 // import { message } from "ant-design-vue";
-
 const { appContext } = getCurrentInstance();
 console.log(appContext);
 const globalProxy = appContext.config.globalProperties;
@@ -86,33 +86,33 @@ const formRef = ref<FormInstance>();
 const onFinish = (values: any) => {
   const { username, password } = formState;
 
-  globalProxy.$http
-    .post("http://localhost:5000/api/v1/login", {
-      username: username,
-      password: password,
-    })
-    .then((res) => {
-      console.log(res);
-      if (res.data.code === 0) {
-        localStorage.setItem("userInfo", JSON.stringify(res.data.data));
-        localStorage.setItem("token", res.data.token);
-        globalProxy.$message.success({
-          content: "登录成功",
-          duration: 2,
-          onClose: () => {
-            router.push("/home");
-          },
-        });
-      } else {
-        globalProxy.$message.error({
-          content: res.data.msg,
-          duration: 3,
-          onClose: () => {
-            formRef.value.resetFields();
-          },
-        });
-      }
-    });
+  // globalProxy.$http
+  //   .post("http://localhost:5000/api/v1/login", {
+  //     username: username,
+  //     password: password,
+  //   })
+  getlogin({username: username,password: password}).then((res) => {
+    console.log(res);
+    if (res.data.code === 0) {
+      localStorage.setItem("userInfo", JSON.stringify(res.data.data));
+      localStorage.setItem("token", res.data.token);
+      globalProxy.$message.success({
+        content: "登录成功",
+        duration: 2,
+        onClose: () => {
+          router.push("/home");
+        },
+      });
+    } else {
+      globalProxy.$message.error({
+        content: res.data.msg,
+        duration: 3,
+        onClose: () => {
+          formRef.value.resetFields();
+        },
+      });
+    }
+  });
   // axios
   //   .post("http://localhost:5000/api/v1/login", {
   //     username: username,
@@ -141,7 +141,6 @@ const onFinish = (values: any) => {
   //   });
   console.log("Success:", values);
 };
-
 // 回车键登录
 const login = () => {
   document.onkeydown = (e) => {
@@ -150,11 +149,9 @@ const login = () => {
     }
   };
 };
-
 const onFinishFailed = (errorInfo: any) => {
   console.log("Failed:", errorInfo);
 };
-
 const disabled = computed(() => {
   return !(formState.username && formState.password);
 });

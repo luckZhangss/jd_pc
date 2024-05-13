@@ -2,7 +2,10 @@
   <div class="box">
     <div class="user">
       <h3>
-        欢迎你 <span style="color: red">【{{ userInfo.username }}】</span> 登录!!!
+        <a href="/chartList">图标列表</a>
+        <a href="/keepAliveB" style="margin-left: 10px">缓存组件</a>
+        欢迎你
+        <span style="color: red">【{{ userInfo.username }}】</span> 登录!!!
       </h3>
       <div
         style="font-size: 14px; margin-left: 20px; cursor: pointer; color: blue"
@@ -156,7 +159,9 @@
                       :src="item.picUrl"
                       alt=""
                     />
-                    <p style="color: red;font-weight: 600;">￥{{ item.price }}</p>
+                    <p style="color: red; font-weight: 600">
+                      ￥{{ item.price }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -204,7 +209,9 @@
                       :src="item.picUrl"
                       alt=""
                     />
-                    <p style="color: red;font-weight: 600;">￥{{ item.price }}</p>
+                    <p style="color: red; font-weight: 600">
+                      ￥{{ item.price }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -214,7 +221,11 @@
         <!-- 四层 -->
         <div class="midd_tim_four">
           <div>
-            <div v-for="item in data.Otherfunction" :key="item" @click="otherFunction(item)">
+            <div
+              v-for="item in data.Otherfunction"
+              :key="item"
+              @click="otherFunction(item)"
+            >
               <img :src="item.picUrl" alt="" />
               <p>{{ item.name }}</p>
             </div>
@@ -246,6 +257,7 @@
         <img :src="item.picUrl" />
         <p>{{ item.title }}</p>
         <p>
+          <!-- ￥<span>{{ item.price.toFixed(2) }}</span> -->
           ￥<span>{{ item.price.toFixed(2) }}</span>
         </p>
       </div>
@@ -260,14 +272,22 @@
 
 <script lang="ts" setup>
 // import {userCartStore} from '../stores/cart'
-
+import {
+  getTabList,
+  getNav,
+  getShopping,
+  getOtherfunction,
+  getGuessLike,
+  getSwiper,
+  getSmallSwiper,
+} from "@/config/api";
 import { userCartsStore } from "@/stores/carts";
 import {
   LeftCircleOutlined,
   RightCircleOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons-vue";
-import { reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 import { message } from "ant-design-vue";
@@ -285,9 +305,9 @@ const cancel = (e: MouseEvent) => {
   message.error("已取消");
 };
 
-const otherFunction = (e)=>{
-  message.info(e.name + '功能正在开发中')
-}
+const otherFunction = (e) => {
+  message.info(e.name + "功能正在开发中");
+};
 
 // 去购物车
 const goCart = () => {
@@ -312,12 +332,6 @@ const goDetails = (item) => {
 
 // 本地获取存储的用户信息
 let userInfo = JSON.parse(localStorage.getItem("userInfo"));
-// console.log('777',userInfo);
-
-
-// 回到顶部
-let btn = document.querySelector("#btn");
-// 监听页面滚动
 window.onscroll = () => {
   let currHeight = document.documentElement.scrollTop;
   if (currHeight > 300) {
@@ -344,41 +358,37 @@ const data = reactive({
   smallSwiper: [],
 });
 
-// tab
-axios.get("http://localhost:3000/tabList").then((res) => {
-  console.log(res);
-  data.tabList = res.data;
-});
-// nav
-axios.get("http://localhost:3000/nav").then((res) => {
-  console.log(res);
-  data.nav = res.data;
-});
 
-// 请求获取商品详情
-axios.get("http://localhost:3000/shopping").then((res) => {
-  console.log(res);
-  data.shopping = res.data;
-});
-// Otherfunction
-axios.get("http://localhost:3000/Otherfunction").then((res) => {
-  console.log(res);
-  data.Otherfunction = res.data;
-});
-// 猜你喜欢
-axios.get("http://localhost:3000/guessLike").then((res) => {
-  console.log(res);
-  data.guessLike = res.data;
-});
-// 轮播图
-axios.get("http://localhost:3000/swiper").then((res) => {
-  console.log(res);
-  data.middSwip = res.data;
-});
-// 小轮播
-axios.get("http://localhost:3000/smallSwiper").then((res) => {
-  console.log(res);
-  data.smallSwiper = res.data;
+
+// tab
+onMounted(() => {
+  getTabList().then((res) => {
+    data.tabList = res.data;
+  });
+  // nav
+  getNav().then((res) => {
+    data.nav = res.data;
+  });
+  // 请求获取商品详情
+  getShopping().then((res) => {
+    data.shopping = res.data;
+  });
+  // Otherfunction
+  getOtherfunction().then((res) => {
+    data.Otherfunction = res.data;
+  });
+  // 猜你喜欢
+  getGuessLike().then((res) => {
+    data.guessLike = res.data;
+  });
+  // 轮播图
+  getSwiper().then((res) => {
+    data.middSwip = res.data;
+  });
+  // 小轮播
+  getSmallSwiper().then((res) => {
+    data.smallSwiper = res.data;
+  });
 });
 
 const onSearch = (searchValue: string) => {

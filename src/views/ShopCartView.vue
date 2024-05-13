@@ -1,9 +1,9 @@
 <template>
   <div>
     <!-- 返回首页 -->
-    <div style="margin: 5px 0 10px; cursor: pointer">
+    <!-- <div style="margin: 5px 0 10px; cursor: pointer">
       <a href="/home" style="text-decoration: none">返回首页</a>
-    </div>
+    </div> -->
 
     <div
       style="
@@ -39,12 +39,12 @@
         v-model:checked="item.check"
       ></a-checkbox>
       <img :src="item.picUrl" alt="" />
-      <span>{{ item.title }}</span>
+      <span >{{ item.title }}</span>
       <p>
-        ￥<span> {{ item.price }}</span>
+        <span style="margin-left: -100px;">￥{{ item.price }}</span>
       </p>
-      <p v-for="item1 in item.spec">
-        <span> {{item1}}</span>
+      <p v-for="item1 in item.spec" style="margin-left: -90px;">
+        <span > {{item1}}</span>
       </p>
       <div>
         <button @click="item.num--" :disabled="item.num === 1">-</button>
@@ -86,24 +86,23 @@
       </p>
       <a-button type="primary" danger>去结算</a-button>
     </div>
-    <h1 style="text-align: center; align-items: center" v-else>
+    <!-- <h1 style="text-align: center; align-items: center" v-else>
       当前没有任何商品
-    </h1>
+    </h1> -->
+   <img style="cursor: pointer" src="https://jkwedu.net/images/empty/cart.png" @click="router.push('/home')" alt="" v-else >
   </div>
 </template>
 <script setup lang="ts">
 import { message } from "ant-design-vue";
-
+import router from "@/router";
 // import { userCartStore } from "@/stores/cart";
 import { userCartsStore } from "@/stores/carts";
 
 import { storeToRefs } from "pinia";
 // const cartStore = userCartStore()
-
 const cartStores = userCartsStore();
-
 // import axios from "axios";
-import { reactive, ref, watch,computed } from "vue";
+// import { reactive, ref, watch,computed } from "vue";
 
 // import {useRoute} from 'vue-router'
 // const route = useRoute()
@@ -125,9 +124,7 @@ let { shop, isChecked, total } = storeToRefs(cartStores);
 //   console.log(res.data);
 //   cartStore.addCart(res.data)
 // })
-
 //  cartStore.addCart(shop)
-
 const checkAll = () => {
   if (isChecked.value) {
     // 不选
@@ -142,7 +139,6 @@ const confirm = (index) => {
   cartStores.shop.splice(index, 1);
   message.info("已删除");
 };
-
 // const checkAll = ()=>{
 //   if(isChecked.value){
 //     // 不选
@@ -158,8 +154,6 @@ const confirm = (index) => {
 //     message.info('已删除');
 
 //   };
-
-
 // 删除商品，截取数组下标
 // const del = (index: any) => {
 //   console.log("删除了");
@@ -184,10 +178,6 @@ const clear = (index) => {
   // location.reload();
   cartStores.shop.splice(index);
 };
-
-  
-
-
 // 删除选中的商品
 const selectDel = ()=>{
 // const uncheckedItems = computed(() =>cartStores.shop.filter(item => !item.check));    
@@ -195,10 +185,6 @@ const selectDel = ()=>{
 cartStores.selectDel
  
 }
-
-
-
-
 // route 接收路由传过来的参数
 // const route = useRoute()
 // let title = route.query.title
@@ -233,7 +219,12 @@ cartStores.selectDel
   justify-content: space-around;
   align-items: center;
   border: 1px solid;
+
 }
+.second>:nth-child(2){
+  margin-left: -80px;
+}
+
 .second > img {
   width: 80px;
   height: 80px;
@@ -247,9 +238,10 @@ cartStores.selectDel
 .balance {
   display: flex;
   justify-content: flex-end;
-  margin-top: 80px;
+  margin-top: 120px;
 }
 .balance > p {
-  margin: 5px 10px;
+  margin: 10px 10px;
 }
+
 </style>

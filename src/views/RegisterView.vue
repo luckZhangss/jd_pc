@@ -54,6 +54,8 @@ import { reactive, ref } from "vue";
 import type { Rule } from "ant-design-vue/es/form";
 import type { FormInstance } from "ant-design-vue";
 import { message } from "ant-design-vue";
+import {getRegister} from '@/config/api'
+
 
 interface FormState {
   username: string;
@@ -108,12 +110,12 @@ const layout = {
 };
 const handleFinish = (values: FormState) => {
   const { username, pass } = formState;
-  axios
-    .post("http://localhost:5000/api/v1/register", {
-      username: username,
-      password: pass,
-    })
-    .then((res) => {
+  // axios
+  //   .post("http://localhost:5000/api/v1/register", {
+  //     username: username,
+  //     password: pass,
+  //   })
+  getRegister({username: username,password: pass,}).then((res) => {
       console.log(res);
       if (res.data.code === 0) {
         message.success({
@@ -149,7 +151,6 @@ const handleValidate = (...args) => {
   console.log(args);
 };
 </script>
-
 <style scoped>
 .box{
   display: flex;

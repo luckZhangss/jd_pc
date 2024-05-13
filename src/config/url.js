@@ -1,15 +1,3 @@
-// 统一接口管理
-
-
-const prefix1 = 'http://localhost:5000/api/v1'
-const url = {
-    Register: prefix1 + '/register',
-    Login: ''
-}
-
-
-
-
-
-
-export default url
+// 统一接口前缀管理
+export const BASE_URL = '/url1' // 前缀1
+export const BASE_URL2 = '/url2' // 前缀2

@@ -62,6 +62,7 @@
                 {{ item1 }}
               </option>
             </select>
+           
           </div>
         </div>
 
@@ -88,11 +89,20 @@
         </div>
       </div>
     </div>
+
+    <!-- 测试盒子 -->
+    <div
+      class="div"
+      :style="{ borderColor: borderColor }"
+      @click="changeBorderColor"
+      id="div"
+    >
+      测试盒子
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-
 import { userCartsStore } from "@/stores/carts";
 import { reactive, ref } from "vue";
 const cartStores = userCartsStore();
@@ -112,6 +122,14 @@ let shops1 = reactive({
   shops,
 });
 
+const borderColor = ref("blue");
+const changeBorderColor = () => {
+  borderColor.value = "red";
+};
+//   document.getElementById('div').addEventListener('click',function(){
+//    this.style.backgroundColor = 'red'
+// })
+
 // console.log("111", shops);
 const router = useRouter();
 
@@ -126,25 +144,33 @@ const selectedSpecs = ref(shops1.shops.spec.map((v) => v.options[0]));
 const addCart = (shops) => {
   // console.log("添加规格为:", selectedSpecs.value);
 
-let shopss =  Object.assign(shops.spec,selectedSpecs.value)
-console.log('444',shopss);
-console.log('1',shops);
-
-
+  let shopss = Object.assign(shops.spec, selectedSpecs.value);
+  console.log("444", shopss);
+  console.log("1", shops);
 
   if (cartStores.shop.includes(shops)) {
     cartStores.addItemToArray(shops);
   } else {
     const index = cartStores.shop.findIndex((item) => item.id === shops.id);
-    if (index !== -1) {
-      // 购物车中已有该商品，只增加数量     这里有bug
+
+    if (index !== -1 ) {
+      // 购物车中已有该商品，只增加数量     
       // 如果添加的数量是1
-      if (shops.num == 1) {
+    
+      if (shops.num == 1) {      //这里有bug
         cartStores.shop[index].num++;
       } else {
         cartStores.shop[index].num += shops.num++;
       }
+
+      // if(shops.num ==1 && selectedSpecs.value === shops.spec){
+      //   cartStores.shop[index].num++;
+      // }else{
+      //   cartStores.addShop(shops);
+      // }
+
     } else {
+    
       // 购物车中没有该商品，添加到购物车
       // cartStores.shop.push({ ...shops});
       cartStores.addShop(shops);
@@ -246,12 +272,17 @@ console.log('1',shops);
   padding: 5px 10px;
   cursor: pointer;
 }
-/* .specRig>.a-radio-button{
+.specRig > .a-radio-button {
   display: block;
   margin-left: 8px;
   border: 1px solid;
   text-align: center;
-  padding:0 8px;
+  padding: 0 8px;
   cursor: pointer;
-} */
+}
+.div {
+  border-style: solid;
+  width: 10%;
+  cursor: pointer;
+}
 </style>

@@ -10,11 +10,15 @@ export const userCartsStore = defineStore({
       select: [], //商品选中的id
     };
   },
-
   getters: {
     isChecked() {
       return this.select.length === this.shop.length;
     },
+     // 删除选中商品
+    selectDel(){
+      const uncheckedItems = computed(() =>this.shop.filter(item => !item.check));
+       this.shop = uncheckedItems.value
+     },
     // 总价
     total() {
       let total = {
@@ -29,12 +33,7 @@ export const userCartsStore = defineStore({
         }
       });
       return total;
-    },
-        // 删除选中商品
-      selectDel(){
-        const uncheckedItems = computed(() =>this.shop.filter(item => !item.check));
-         this.shop = uncheckedItems.value
-       }
+    }  
   },
   persist: true,
   actions: {
@@ -49,10 +48,7 @@ export const userCartsStore = defineStore({
         this.shop.push(shops)
       }
     },
-
-
     addCart(list) {
-
       this.select = [];
       list.forEach((v) => {
         v["check"] = false;
@@ -91,9 +87,5 @@ export const userCartsStore = defineStore({
         this.select.push(id);
       }
     },
-
-    
-
-   
-  },
+  }, 
 });

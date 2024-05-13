@@ -7,11 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "server":"json-server db.json"
+    "server": "json-server db.json"
   },
   "dependencies": {
     "ant-design-vue": "^4.1.2",
     "axios": "^1.6.8",
+    "echarts": "^5.5.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
